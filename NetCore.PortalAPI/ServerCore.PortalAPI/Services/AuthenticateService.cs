@@ -151,13 +151,14 @@ namespace ServerCore.PortalAPI.Services
 
                 CacheCounter.AccountActionDelete(loginAccount.UserName, appSettings.LoginActionName);
                 //elapsedMs = watch.ElapsedMilliseconds;
+                //elapsedMs = watch.ElapsedMilliseconds;
                 //NLogManager.Info(string.Format("LOGIN service 3: {0}", elapsedMs));
                 SecurityInfo securityInfo = _accountDAO.GetSecurityInfo(account.AccountID);
                 // set trạng thái active mobile 
                 if (securityInfo != null)
                     account.IsMobileActived = securityInfo.IsMobileActived;
 
-                if (securityInfo.IsLoginOTP)
+                if (securityInfo != null && securityInfo.IsLoginOTP)
                 {
                     string serviceData = JsonConvert.SerializeObject(account);
                     OtpData otpData = new OtpData(account.UserName, account.AccountID, DateTime.Now.Ticks, (int)OtpServiceCode.OTP_SERVICE_LOGIN, loginAccount.PlatformId, serviceData);
@@ -166,12 +167,6 @@ namespace ServerCore.PortalAPI.Services
                     accountInfo.IsOtp = true;
                     accountInfo.OtpToken = token;
                     response = (int)ErrorCodes.NEED_OTP_CODE;
-                    //watch.Stop();
-                    //elapsedMs = watch.ElapsedMilliseconds;
-                    //NLogManager.Info(string.Format("LOGIN service 4: {0}", elapsedMs));
-                    //watch.Stop();
-                    //elapsedMs = watch.ElapsedMilliseconds;
-                    //NLogManager.Info(string.Format("LOGIN_LoginServer 2: {0}, {1}", loginAccount.UserName, elapsedMs));
                 }
                 else
                 {
@@ -182,8 +177,7 @@ namespace ServerCore.PortalAPI.Services
                     accountInfo.RefreshToken = GenerateRefreshToken(account);
                     accountInfo.AccessTokenFishing = GenerateTokenFishing(account);
                     accountInfo.SessionID = account.SessionID;
-                    //accountInfo.IsEvent = IsShowEvent(account.AccountID);
-                    //4: android, 3: ios, 2: windows - pc, 1: web
+                    
                     string platform = "Android";
                     if (account.PlatformID == 3)
                         platform = "Ios";
@@ -192,17 +186,7 @@ namespace ServerCore.PortalAPI.Services
                     if (account.PlatformID == 1)
                         platform = "Web";
                     string message = String.Format("Bạn vừa đăng nhập vào hệ thống trên {0} lúc {1}. Chúc bạn chơi game vui vẻ!", platform, DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"));
-                    //_otp.PushMessageToTelegramAsync(account.AccountID, account.Mobile, message);
-                    //if (accountInfo.AccountID == 91373)
-                    //{
-                    //    _otp.PushMessageToTelegram(65, "0762222888", "Đối tượng MrBin2019 vừa đăng nhập, vào cân cửa thôi nào!");
-                    //}
-                    //watch.Stop();
-                    //elapsedMs = watch.ElapsedMilliseconds;
-                    //NLogManager.Info(string.Format("LOGIN service 5: {0}", elapsedMs));
-                    //watch.Stop();
-                    //elapsedMs = watch.ElapsedMilliseconds;
-                    //NLogManager.Info(string.Format("LOGIN_LoginServer 3: {0}, {1}", loginAccount.UserName, elapsedMs));
+                    
                     return (int)ErrorCodes.SUCCESS;
                 }
             }
@@ -294,7 +278,7 @@ namespace ServerCore.PortalAPI.Services
                 // set trạng thái active mobile 
                 if (securityInfo != null)
                     account.IsMobileActived = securityInfo.IsMobileActived;
-                if (securityInfo.IsLoginOTP)
+                if (securityInfo != null && securityInfo.IsLoginOTP)
                 {
                     string serviceData = JsonConvert.SerializeObject(account);
                     OtpData otpData = new OtpData(account.UserName, account.AccountID, DateTime.Now.Ticks, (int)OtpServiceCode.OTP_SERVICE_LOGIN, loginAccount.PlatformId, serviceData);
@@ -935,15 +919,15 @@ namespace ServerCore.PortalAPI.Services
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim(appSettings.ClaimTypeAccountId, accountDb.AccountID.ToString()),
-                        new Claim(appSettings.ClaimTypeUserName, accountDb.UserName),
-                        new Claim(appSettings.ClaimTypeNickName, accountDb.UserFullname),
+                        new Claim(appSettings.ClaimTypeUserName, accountDb.UserName ?? string.Empty),
+                        new Claim(appSettings.ClaimTypeNickName, accountDb.UserFullname ?? string.Empty),
                         new Claim(appSettings.ClaimTypePlatformId, accountDb.PlatformID.ToString()),
                         new Claim(appSettings.ClaimTypeMerchantId, accountDb.MerchantID.ToString()),
                         new Claim(appSettings.ClaimTypeAgency, accountDb.IsAgency.ToString()),
                         new Claim(appSettings.ClaimTypeOTP, accountDb.IsMobileActived.ToString()),
                         new Claim(appSettings.ClaimLocationId, accountDb.LocationID.ToString()),
                         new Claim(appSettings.ClaimPreFix, (string.IsNullOrEmpty(accountDb.PreFix)?"GB":accountDb.PreFix.ToString())),
-                        new Claim(JwtRegisteredClaimNames.Jti, accountDb.SessionID),
+                        new Claim(JwtRegisteredClaimNames.Jti, accountDb.SessionID ?? Guid.NewGuid().ToString()),
                         new Claim(appSettings.ClaimCurrencyType, accountDb.CurrencyType.ToString())
                         //new Claim(appSettings.ClaimRefCode, accountDb.RefCode.ToString())
                     }),

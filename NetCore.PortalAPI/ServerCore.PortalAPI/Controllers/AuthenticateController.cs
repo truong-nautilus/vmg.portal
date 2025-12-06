@@ -184,7 +184,7 @@ namespace ServerCore.PortalAPI.Controllers
             NLogManager.Info("Login");
             try
             {
-                NLogManager.Info(JsonConvert.SerializeObject("Login 1 " + loginAccount));
+                NLogManager.Info("Login 1 " + JsonConvert.SerializeObject(loginAccount));
 
                 //PolicyUtil.CheckNickName(userName);
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
@@ -201,6 +201,7 @@ namespace ServerCore.PortalAPI.Controllers
 
                 if (platformId < (int)PlatformDef.ANDROID_PLATFORM || platformId > (int)PlatformDef.WEB_PLATFORM)
                 {
+                    NLogManager.Error($"PlatformId Invalid: {platformId}");
                     return Ok(new ResponseBuilder(ErrorCodes.PLATFORM_INVALID, lng));
                 }
 
@@ -244,7 +245,7 @@ namespace ServerCore.PortalAPI.Controllers
                 //elapsedMs = watch.ElapsedMilliseconds;
                 //NLogManager.Info(string.Format("LOGIN_LoginService: {0},{1}", userName, elapsedMs));
 
-                if (response == (int)ErrorCodes.SUCCESS || response == (int)ErrorCodes.NEED_OTP_CODE)
+                if ((response == (int)ErrorCodes.SUCCESS || response == (int)ErrorCodes.NEED_OTP_CODE) && accountInfo != null && !string.IsNullOrEmpty(accountInfo.AccessToken))
                 {
                     //watch.Restart();
                     CacheCounter.AccountActionDelete(userName, _loginActionName);
