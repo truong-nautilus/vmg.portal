@@ -149,15 +149,31 @@ namespace ServerCore.PortalAPI
             services.AddSingleton<WalletService>();
             services.AddSingleton<TatumService>();
             services.AddSingleton<IVMGDAO, VMGDAOImpl>();
+            services.AddScoped<IAdminDbService, AdminDbService>();
 
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();
+                
+                // Portal API (Client-facing)
                 c.SwaggerDoc("v1", new OpenApiInfo 
                 { 
                     Title = "VMG Portal API", 
                     Version = "v1",
                     Description = "API cho hệ thống VMG Portal - Quản lý tài khoản, thanh toán, game và các dịch vụ liên quan",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "VMG Support",
+                        Email = "support@vmg.vn"
+                    }
+                });
+                
+                // Admin API (CMS/Admin Panel)
+                c.SwaggerDoc("admin", new OpenApiInfo
+                {
+                    Title = "VMG Admin API",
+                    Version = "v1",
+                    Description = "Admin/CMS APIs cho quản lý hệ thống VMG Portal - Dashboard, User Management, Reports, Settings",
                     Contact = new OpenApiContact
                     {
                         Name = "VMG Support",
@@ -222,6 +238,7 @@ namespace ServerCore.PortalAPI
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "VMG Portal API V1");
+                c.SwaggerEndpoint("/swagger/admin/swagger.json", "VMG Admin API V1");
                 c.RoutePrefix = "swagger"; 
             });
 
