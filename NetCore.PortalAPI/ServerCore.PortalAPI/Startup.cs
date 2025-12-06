@@ -104,6 +104,7 @@ namespace ServerCore.PortalAPI
 
             NLogManager.Info("appSettings.IsRedisCache: " + appSettings.IsRedisCache);
             services.AddHttpContextAccessor();
+            services.AddMemoryCache(); // Add IMemoryCache for CacheHandler
             if (appSettings.IsRedisCache)
             {
                 NLogManager.Info("Config RedisCache");
