@@ -11,14 +11,14 @@ echo "========================================="
 echo ""
 
 # Configuration
-CONTAINER_NAME="vmg-sqlserver"
+CONTAINER_NAME="gaming-sqlserver"
 SA_PASSWORD="YourStrong@Passw0rd"
 DATABASE_NAME="Vmg.BillingDB"
 
 # Step 1: Setup SQL Server
 echo "Step 1/4: Setting up SQL Server..."
 chmod +x setup-sqlserver.sh
-./setup-sqlserver.sh
+# ./setup-sqlserver.sh
 
 echo ""
 echo "Step 2/4: Waiting for SQL Server to be ready..."
@@ -50,7 +50,7 @@ echo "========================================="
 echo "Updating appsettings.Development.json"
 echo "========================================="
 
-CONNECTION_STRING="Server=localhost,1433;Database=${DATABASE_NAME};User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;Encrypt=false"
+CONNECTION_STRING="Server=127.0.0.1,1433;Database=${DATABASE_NAME};User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;Encrypt=false"
 
 # Update all connection strings in appsettings.Development.json
 if [ -f "NetCore.PortalAPI/ServerCore.PortalAPI/appsettings.Development.json" ]; then
