@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Netcore.Chat.Interfaces;
-using Netcore.Chat.Models;
+using NetCore.Chat.Interfaces;
+using NetCore.Chat.Models;
 using NetCore.Utils.Log;
 using System;
 using System.Collections.Concurrent;
@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Timers;
 
-namespace Netcore.Chat.Controllers
+namespace NetCore.Chat.Controllers
 {
     public class ChatFilter
     {

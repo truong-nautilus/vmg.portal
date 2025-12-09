@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Netcore.Notification.Models
+namespace NetCore.Notification.Models
 {
     public class UserNotification
     {

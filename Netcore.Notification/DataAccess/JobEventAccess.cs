@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Netcore.Notification.Models;
+using NetCore.Notification.Models;
 using NetCore.Utils.Interfaces;
 using NetCore.Utils.Log;
 using System;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Netcore.Notification.DataAccess
+namespace NetCore.Notification.DataAccess
 {
     public class JobEventAccess
     {

@@ -1,7 +1,7 @@
-﻿using Netcore.Notification.Models;
+﻿using NetCore.Notification.Models;
 using System.Collections.Generic;
 
-namespace Netcore.Notification.Interfaces
+namespace NetCore.Notification.Interfaces
 {
     //public interface ISQLAccess
     //{

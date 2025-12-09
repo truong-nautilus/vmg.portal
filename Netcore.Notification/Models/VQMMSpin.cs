@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Netcore.Notification.Models
+namespace NetCore.Notification.Models
 {
     public class VQMMSpin
     {

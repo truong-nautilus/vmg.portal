@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Netcore.Chat.Models
+namespace NetCore.Chat.Models
 {
     public class ChatUser
     {

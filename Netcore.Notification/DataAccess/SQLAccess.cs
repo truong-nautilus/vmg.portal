@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Netcore.Notification.Models;
+using NetCore.Notification.Models;
 using NetCore.Utils.Interfaces;
 using NetCore.Utils.Log;
 using Newtonsoft.Json;
@@ -10,7 +10,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Netcore.Notification.DataAccess
+namespace NetCore.Notification.DataAccess
 {
     public class SQLAccess
     {

@@ -2,7 +2,7 @@
 using ServerCore.Utilities.Database;
 using System.Collections.Generic;
 
-namespace Netcore.Gateway.Interfaces
+namespace NetCore.Gateway.Interfaces
 {
     public interface ISQLAccess
     {

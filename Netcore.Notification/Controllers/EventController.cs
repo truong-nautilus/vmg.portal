@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using Netcore.Notification.DataAccess;
-using Netcore.Notification.Models;
+using NetCore.Notification.DataAccess;
+using NetCore.Notification.Models;
 using NetCore.Utils.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Netcore.Notification.Controllers
+namespace NetCore.Notification.Controllers
 {
     public class EventController
     {

@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Netcore.Notification.Controllers;
-using Netcore.Notification.DataAccess;
-using Netcore.Notification.Hubs;
-using Netcore.Notification.Models;
+using NetCore.Notification.Controllers;
+using NetCore.Notification.DataAccess;
+using NetCore.Notification.Hubs;
+using NetCore.Notification.Models;
 using NetCore.Utils.Extensions;
 
-namespace Netcore.Notification
+namespace NetCore.Notification
 {
     public class Startup
     {

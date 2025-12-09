@@ -1,4 +1,4 @@
-﻿namespace Netcore.Notification.Models
+﻿namespace NetCore.Notification.Models
 {
     public class Jackpot
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Netcore.Gateway.Interfaces;
+using NetCore.Gateway.Interfaces;
 using ServerCore.DataAccess.DAO;
 using ServerCore.DataAccess.DTO;
 using ServerCore.PortalAPI.Models;

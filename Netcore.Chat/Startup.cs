@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Netcore.Chat.Controllers;
-using Netcore.Chat.DataAccess;
-using Netcore.Chat.Hubs;
-using Netcore.Chat.Interfaces;
-using Netcore.Chat.Models;
+using NetCore.Chat.Controllers;
+using NetCore.Chat.DataAccess;
+using NetCore.Chat.Hubs;
+using NetCore.Chat.Interfaces;
+using NetCore.Chat.Models;
 using NetCore.Utils;
 using NetCore.Utils.Extensions;
 using NetCore.Utils.Interfaces;
 
-namespace Netcore.Chat
+namespace NetCore.Chat
 {
     public class Startup
     {

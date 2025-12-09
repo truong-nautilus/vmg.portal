@@ -10,7 +10,7 @@ using ServerCore.Utilities.Utils;
 using ServerCore.Utilities.Database;
 using Microsoft.Extensions.Options;
 using ServerCore.PortalAPI.Models;
-using Netcore.Gateway.Interfaces;
+using NetCore.Gateway.Interfaces;
 
 namespace ServerCore.DataAccess.DAOImpl
 {

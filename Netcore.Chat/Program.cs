@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Netcore.Chat
+namespace NetCore.Chat
 {
     public class Program
     {

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Netcore.Notification.Models;
+using NetCore.Notification.Models;
 using NetCore.Utils.Log;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Netcore.Notification.Controllers
+namespace NetCore.Notification.Controllers
 {
     public class PlayerHandler
     {
