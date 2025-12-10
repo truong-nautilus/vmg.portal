@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Netcore.Notification.DataAccess;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Sessions;
 using System.Collections.Generic;
 using System.Threading.Tasks;

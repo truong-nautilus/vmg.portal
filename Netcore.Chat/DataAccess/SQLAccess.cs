@@ -2,8 +2,9 @@
 using Microsoft.Extensions.Options;
 using Netcore.Chat.Interfaces;
 using Netcore.Chat.Models;
+using AppSettings = Netcore.Chat.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -33,7 +34,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return new List<Admin>();
         }
@@ -49,7 +50,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
             }
             return new List<BlockAccount>();
         }
@@ -65,7 +66,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
             }
             return new List<KeywordReplace>();
         }
@@ -85,7 +86,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
                 return new List<BadWord>();
             }
         }
@@ -100,7 +101,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
             }
         }
 
@@ -119,7 +120,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
             }
         }
         public List<ChatDB> LoadListLastMessage(string channelId)
@@ -138,7 +139,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception e)
             {
-                NLogManager.LogException(e);
+                NLogManager.Exception(e);
                 return new List<ChatDB>();
             }
         }
@@ -156,7 +157,7 @@ namespace Netcore.Chat.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogInfo(">>> Exception SP_GroupFuntions_Edit: " + ex.Message);
+                NLogManager.Info(">>> Exception SP_GroupFuntions_Edit: " + ex.Message);
                 //throw (new Exception(ex.Message));
             }
         }
@@ -174,7 +175,7 @@ namespace Netcore.Chat.DataAccess
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogInfo(">>> Exception SP_AccountName_Chat_Get_List: " + ex.Message);
+        //        NLogManager.Info(">>> Exception SP_AccountName_Chat_Get_List: " + ex.Message);
         //        throw (new Exception(ex.Message));
         //    }
         //}
@@ -200,7 +201,7 @@ namespace Netcore.Chat.DataAccess
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogInfo(">>> Exception SP_User_Login: " + ex.Message);
+        //        NLogManager.Info(">>> Exception SP_User_Login: " + ex.Message);
         //        throw (new Exception(ex.Message));
         //    }
         //}
@@ -215,7 +216,7 @@ namespace Netcore.Chat.DataAccess
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogInfo(">>> Exception SP_User_GetAll: " + ex.Message);
+        //        NLogManager.Info(">>> Exception SP_User_GetAll: " + ex.Message);
         //        throw (new Exception(ex.Message));
         //    }
         //}
@@ -241,7 +242,7 @@ namespace Netcore.Chat.DataAccess
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogInfo(">>> Exception SP_User_Edit: " + ex.Message);
+        //        NLogManager.Info(">>> Exception SP_User_Edit: " + ex.Message);
         //        throw (new Exception(ex.Message));
         //    }
         //}

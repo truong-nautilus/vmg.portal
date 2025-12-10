@@ -4,8 +4,9 @@ using Microsoft.Extensions.Options;
 using Netcore.Chat.Hubs;
 using Netcore.Chat.Interfaces;
 using Netcore.Chat.Models;
+using AppSettings = Netcore.Chat.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using NetCore.Utils.Sessions;
 using System;
 using System.Collections.Concurrent;
@@ -125,7 +126,7 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -144,33 +145,33 @@ namespace Netcore.Chat.Controllers
                 {
                     return false;
                 }
-                //  NLogManager.LogInfo("vao day ko 1");
+                //  NLogManager.Info("vao day ko 1");
                 //LoadListAdmin();
                 if (message.Length > MAX_MESSAGE_LENGTH)
                 {
                     BroadcastMessage(connectionId, string.Format("Chat không vượt quá {0} kí tự!", MAX_MESSAGE_LENGTH));
                     return false;
                 }
-                // NLogManager.LogInfo("vao day ko 2");
+                // NLogManager.Info("vao day ko 2");
 
                 if (accountId < 1)
                 {
-                    NLogManager.LogInfo(string.Format("Sending message: not authenticated accountId: {0} - channel: {1} - content={2}", accountId, channelId, message));
+                    NLogManager.Info(string.Format("Sending message: not authenticated accountId: {0} - channel: {1} - content={2}", accountId, channelId, message));
                     return false;
                 }
-                //NLogManager.LogInfo("vao day ko 3");
+                //NLogManager.Info("vao day ko 3");
                 ChatChannel chatChannel = GetChannel(channelId);
                 if (chatChannel == null)
                 {
-                    NLogManager.LogInfo(string.Format("Sending message: accountId: {0} - not has channel: {1} - content={2}", accountId, channelId, message));
+                    NLogManager.Info(string.Format("Sending message: accountId: {0} - not has channel: {1} - content={2}", accountId, channelId, message));
                     return false;
                 }
-                //NLogManager.LogInfo("vao day ko 4");
+                //NLogManager.Info("vao day ko 4");
 
                 ChatUser chatUser = GetUser(accountId);
                 if (chatUser == null)
                 {
-                    NLogManager.LogInfo(string.Format("Sending message: not chat user: {0} in channel={1} - content={2}", accountId, channelId, message));
+                    NLogManager.Info(string.Format("Sending message: not chat user: {0} in channel={1} - content={2}", accountId, channelId, message));
                     return false;
                 }
 
@@ -179,7 +180,7 @@ namespace Netcore.Chat.Controllers
                 //    BroadcastMessage(hubCallerContext.ConnectionId, string.Format("Tài khoản cần có tối thiểu 10K và đã cài OTP!"));
                 //    return false;
                 //}
-                //NLogManager.LogInfo("vao day ko 5");
+                //NLogManager.Info("vao day ko 5");
                 var isAdmin = _chatfilter.IsAdmin(chatUser.UserName);
                 if (message.Contains("/pin") && isAdmin)
                 {
@@ -188,7 +189,7 @@ namespace Netcore.Chat.Controllers
                     chatChannel.pinMessage = pinText;
                     PinMessage(pinText);
                 }
-                //NLogManager.LogInfo("vao day ko 6");
+                //NLogManager.Info("vao day ko 6");
 
                 if (message.Contains("/remove") && isAdmin)
                 {
@@ -199,7 +200,7 @@ namespace Netcore.Chat.Controllers
                     PinMessage(chatChannel.pinMessage);
                     return true;
                 }
-                //NLogManager.LogInfo("vao day ko 7");
+                //NLogManager.Info("vao day ko 7");
 
                 string filteredMessage = message;
                 string tempFilteredMessage = message;
@@ -210,7 +211,7 @@ namespace Netcore.Chat.Controllers
                     _chatfilter.RemoveBadLinks(tempFilteredMessage, out flag);
                 }
                 //Check thời gian chát theo quy định
-                //NLogManager.LogInfo("vao day ko 8");
+                //NLogManager.Info("vao day ko 8");
 
                 if (!isAdmin)
                 {
@@ -226,15 +227,15 @@ namespace Netcore.Chat.Controllers
                         }
                     }
                 }
-                // NLogManager.LogInfo("vao day ko 9");
+                // NLogManager.Info("vao day ko 9");
 
                 if (_chatfilter.CheckBanUsers(chatUser))
                 {
-                    NLogManager.LogInfo(string.Format(">> {0} ({1}) - Tài khoản đang bị Block! ", chatUser.UserName, chatUser.NickName));
+                    NLogManager.Info(string.Format(">> {0} ({1}) - Tài khoản đang bị Block! ", chatUser.UserName, chatUser.NickName));
                     BroadcastMessage(connectionId, _chatfilter.ReturnCheckBanUsers(chatUser.UserName));
                     return false;
                 }
-                // NLogManager.LogInfo("vao day ko 10");
+                // NLogManager.Info("vao day ko 10");
 
                 //nếu nội dung chat có bad links thì block gói tin và ghi log
                 if (flag)
@@ -245,7 +246,7 @@ namespace Netcore.Chat.Controllers
                     //{
                     //    _chatfilter.BanUser(chatUser.UserName);
                     //}
-                    NLogManager.LogInfo(string.Format("User sent bad link: accountId={0}, username={1} - channelId={2} - content={3} - \n\rAgent: {4}", chatUser.AccountID, chatUser.UserName, channelId, message, chatUser.UserAgent));
+                    NLogManager.Info(string.Format("User sent bad link: accountId={0}, username={1} - channelId={2} - content={3} - \n\rAgent: {4}", chatUser.AccountID, chatUser.UserName, channelId, message, chatUser.UserAgent));
                 }
                 //else
                 //{
@@ -253,7 +254,7 @@ namespace Netcore.Chat.Controllers
                 //    if (!isAdmin)
                 //        filteredMessage = _chatfilter.RemoveBadWords(message, out flag);
 
-                //    NLogManager.LogInfo(flag
+                //    NLogManager.Info(flag
                 //        ? string.Format(
                 //            "User sent bad word: accountId={0}, username={1} - channelId={2} - content={3}",
                 //            chatUser.AccountID, chatUser.UserName, channelId, message)
@@ -268,7 +269,7 @@ namespace Netcore.Chat.Controllers
                 //Thay thế từ khóa
                 if (!isAdmin)
                     filteredMessage = _chatfilter.ReplaceKeyword(filteredMessage);
-                // NLogManager.LogInfo("vao day ko 11");
+                // NLogManager.Info("vao day ko 11");
 
                 //Thêm chat vào DB
                 Task.Run(() =>
@@ -289,7 +290,7 @@ namespace Netcore.Chat.Controllers
                     chatUser.UserName, !isAdmin ? filteredMessage : string.Format("{0}", filteredMessage));
                 chatMessage.VipRank = chatUser.VipRank;
                 bool canSend;
-                //  NLogManager.LogInfo("vao day ko 12");
+                //  NLogManager.Info("vao day ko 12");
 
                 canSend = AddMessage(chatChannel, chatUser, chatMessage);
 
@@ -301,10 +302,10 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
 
-            NLogManager.LogInfo(string.Format(">>Gửi tin nhắn không thành công! "));
+            NLogManager.Info(string.Format(">>Gửi tin nhắn không thành công! "));
             return false;
         }
         public async Task<bool> BotSendMessage(string message, string channelId, int accountID, string UserName)
@@ -318,7 +319,7 @@ namespace Netcore.Chat.Controllers
                 ChatChannel chatChannel = GetChannel(channelId);
                 if (chatChannel == null)
                 {
-                    NLogManager.LogMessage(string.Format("BOT Sending message: accountId: {0} - not has channel: {1} - content={2}", accountID, channelId, message));
+                    NLogManager.Info(string.Format("BOT Sending message: accountId: {0} - not has channel: {1} - content={2}", accountID, channelId, message));
                     return false;
                 }
 
@@ -356,15 +357,15 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
 
-            NLogManager.LogMessage(string.Format(">>BOT Gửi tin nhắn không thành công! "));
+            NLogManager.Info(string.Format(">>BOT Gửi tin nhắn không thành công! "));
             return false;
         }
         public bool AddMessage(ChatChannel chatChannel, ChatUser chatUser, ChatMessage chatMessage)
         {
-            // NLogManager.LogInfo("vao day ko 13");
+            // NLogManager.Info("vao day ko 13");
 
             if (chatMessage == null)
                 return false;
@@ -373,10 +374,10 @@ namespace Netcore.Chat.Controllers
             string compareMessage = _chatfilter.CutOff(chatMessage.Content, " ,.-_():;/\\\'\"");
             if (chatUser.LastMessages.Count > 0)
             {
-                // NLogManager.LogInfo("vao day ko 14");
+                // NLogManager.Info("vao day ko 14");
                 if (DateTime.Compare(chatUser.LastMessageSentTime.AddSeconds(TWO_MESSAGE_DURATION), now) > 0)
                     return false;
-                // NLogManager.LogInfo("vao day ko 15");
+                // NLogManager.Info("vao day ko 15");
 
                 if (chatUser.LastMessages.Count > 100)
                 {
@@ -384,14 +385,14 @@ namespace Netcore.Chat.Controllers
                     if (chatUser.LastMessages.ElementAt(pos).CreatedDate.AddSeconds(TEN_MESSAGE_DURATION) > now)
                         return false;
                 }
-                // NLogManager.LogInfo("vao day ko 16");
+                // NLogManager.Info("vao day ko 16");
 
                 lst = new List<ChatMessage>(chatUser.LastMessages.Where(m => m != null &&
                 !string.IsNullOrEmpty(m.Content) && _chatfilter.CutOff(m.Content, " ,.-_():;/\\\'\"").Equals(compareMessage) &&
                 m.CreatedDate.AddSeconds(GLOBAL_TEN_SAME_MESSAGE_DURATION) > now));
                 if (lst.Count > 120)
                     return false;
-                //NLogManager.LogInfo("vao day ko 17");
+                //NLogManager.Info("vao day ko 17");
 
                 if (chatUser.LastMessages.Count > 1200)
                 {
@@ -402,7 +403,7 @@ namespace Netcore.Chat.Controllers
                     }
                 }
             }
-            // NLogManager.LogInfo("vao day ko 18");
+            // NLogManager.Info("vao day ko 18");
 
             chatUser.LastActivity = now;
             chatUser.LastMessageSentTime = now;
@@ -414,11 +415,11 @@ namespace Netcore.Chat.Controllers
             && m.CreatedDate.AddSeconds(DUPLICATE_MESSAGE_DURATION) > now));
             if (lst.Count > 0)
                 return false;
-            // NLogManager.LogInfo("vao day ko 19");
+            // NLogManager.Info("vao day ko 19");
 
             if (chatChannel.LastMessages.Count > MAX_MESSAGE_IN_CHANNEL)
             {
-                // NLogManager.LogInfo("vao day ko 20");
+                // NLogManager.Info("vao day ko 20");
 
                 if (Monitor.TryEnter(chatChannel.LastMessages, 500))
                 {
@@ -426,7 +427,7 @@ namespace Netcore.Chat.Controllers
                     Monitor.Exit(chatChannel.LastMessages);
                 }
             }
-            //NLogManager.LogInfo("vao day ko 21");
+            //NLogManager.Info("vao day ko 21");
 
             chatChannel.LastMessages.Add(chatMessage);
 
@@ -472,12 +473,12 @@ namespace Netcore.Chat.Controllers
         {
             try
             {
-                NLogManager.LogInfo(string.Format("User join channel: ChannelId={0} | AccountID: {1} | NickName: {2}", channelId, accountId, nickName));
+                NLogManager.Info(string.Format("User join channel: ChannelId={0} | AccountID: {1} | NickName: {2}", channelId, accountId, nickName));
                 await _hubContext.Groups.AddToGroupAsync(connectionId, channelId);
                 ChatChannel chatChannel = GetChannel(channelId, true);
                 if (accountId < 1)
                 {
-                    NLogManager.LogInfo(string.Format(">>AccountID < 1: {0} ", accountId));
+                    NLogManager.Info(string.Format(">>AccountID < 1: {0} ", accountId));
                     return chatChannel;
                 }
 
@@ -523,7 +524,7 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return null;
         }
@@ -542,7 +543,7 @@ namespace Netcore.Chat.Controllers
                     if (chatUser != null)
                     {
                         chatUser.SetActive(false);
-                        NLogManager.LogInfo(string.Format("User leave channel: {0}:{1} - ChannelId={2}", chatUser.AccountID, chatUser.UserName, channelId));
+                        NLogManager.Info(string.Format("User leave channel: {0}:{1} - ChannelId={2}", chatUser.AccountID, chatUser.UserName, channelId));
                     }
 
                     return true;
@@ -550,7 +551,7 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return false;
         }
@@ -578,7 +579,7 @@ namespace Netcore.Chat.Controllers
 
         //public void ClientListLastMessages(HubCallerContext hubCallerContext, ChatChannel chatChannel)
         //{
-        //    NLogManager.LogInfo("ClientListLastMessages : " + chatChannel);
+        //    NLogManager.Info("ClientListLastMessages : " + chatChannel);
 
         //    if (chatChannel != null)
         //    {
@@ -699,7 +700,7 @@ namespace Netcore.Chat.Controllers
                 if (AutoCreate)
                 {
                     chatChannel = Channels.GetOrAdd(channelId, _channel => new ChatChannel(channelId));
-                    NLogManager.LogInfo(string.Format("Create channel chat: {0}", channelId));
+                    NLogManager.Info(string.Format("Create channel chat: {0}", channelId));
                     return chatChannel;
                 }
                 Channels.TryGetValue(channelId, out chatChannel);
@@ -723,7 +724,7 @@ namespace Netcore.Chat.Controllers
                     string username = _accountSession.AccountName;
                     chatUser = UserOnlines.GetOrAdd(accountId, _user => new ChatUser(accountId, username, "", channelId));
 
-                    NLogManager.LogInfo(string.Format("User join chat: {0} : {1}", chatUser.AccountID, chatUser.UserName));
+                    NLogManager.Info(string.Format("User join chat: {0} : {1}", chatUser.AccountID, chatUser.UserName));
 
                     return chatUser;
                 }
@@ -750,7 +751,7 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return info;
         }
@@ -777,7 +778,7 @@ namespace Netcore.Chat.Controllers
                                 ChatChannel chatChannel = GetChannel(channelId);
                                 if (chatChannel != null)
                                 {
-                                    NLogManager.LogInfo(string.Format("ChatChannel --> RemoveUser: {0} - {1}:{2}", channelId, chatUser.AccountID, chatUser.UserName));
+                                    NLogManager.Info(string.Format("ChatChannel --> RemoveUser: {0} - {1}:{2}", channelId, chatUser.AccountID, chatUser.UserName));
                                     var userRemove = chatChannel.RemoveUser(chatUser.AccountID);
                                     if (userRemove != null)
                                     {
@@ -803,12 +804,12 @@ namespace Netcore.Chat.Controllers
                                                     ConnectionIdAccountId.TryRemove(connId, out long accId);
                                             }
 
-                                            NLogManager.LogInfo(string.Format("InActive User: {0} - {1}", outChatUser.AccountID, outChatUser.UserName));
+                                            NLogManager.Info(string.Format("InActive User: {0} - {1}", outChatUser.AccountID, outChatUser.UserName));
                                         }
                                     }
                                     catch (Exception e)
                                     {
-                                        NLogManager.LogException(e);
+                                        NLogManager.Exception(e);
                                     }
                                     finally
                                     {
@@ -822,8 +823,8 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception e)
             {
-                NLogManager.LogInfo("Inactive 1");
-                NLogManager.LogException(e);
+                NLogManager.Info("Inactive 1");
+                NLogManager.Exception(e);
             }
 
             try
@@ -841,11 +842,11 @@ namespace Netcore.Chat.Controllers
                                 try
                                 {
                                     Channels.TryRemove(chatChannel.ChannelId, out ChatChannel outChatChannel);
-                                    NLogManager.LogInfo(string.Format("Remove ChatChannel: {0}", chatChannel.ChannelId));
+                                    NLogManager.Info(string.Format("Remove ChatChannel: {0}", chatChannel.ChannelId));
                                 }
                                 catch (Exception e)
                                 {
-                                    NLogManager.LogException(e);
+                                    NLogManager.Exception(e);
                                 }
                                 finally
                                 {
@@ -858,8 +859,8 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception e)
             {
-                NLogManager.LogInfo("Inactive 2");
-                NLogManager.LogException(e);
+                NLogManager.Info("Inactive 2");
+                NLogManager.Exception(e);
             }
         }
 
@@ -876,7 +877,7 @@ namespace Netcore.Chat.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogInfo(">> Ex ClearMessage:" + ex.Message);
+                NLogManager.Info(">> Ex ClearMessage:" + ex.Message);
             }
         }
 

@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Options;
 using Netcore.Notification.DataAccess;
 using Netcore.Notification.Models;
-using NetCore.Utils.Log;
+using AppSettings = Netcore.Notification.Models.AppSettings;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,9 +87,9 @@ namespace Netcore.Notification.Controllers
         }
         public int GetMoney(long accountID, string userName, long AccountPrizeId, int type, string ClientIP, out long Balance)
         {
-            NLogManager.LogInfo(string.Format("GetMoney =>> accountID:{0} | userName: {1}, AccountPrizeId: {2}, ClientIP:{3} Type: {4} ", accountID, userName, AccountPrizeId, ClientIP, type));
+            NLogManager.Info(string.Format("GetMoney =>> accountID:{0} | userName: {1}, AccountPrizeId: {2}, ClientIP:{3} Type: {4} ", accountID, userName, AccountPrizeId, ClientIP, type));
             var res = _sql.GetMoney(accountID, userName, AccountPrizeId, type, ClientIP, out Balance);
-            NLogManager.LogInfo("GetBON Result: " + res.ToString());
+            NLogManager.Info("GetBON Result: " + res.ToString());
             return res;
         }
     }

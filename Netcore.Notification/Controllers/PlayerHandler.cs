@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Netcore.Notification.Models;
-using NetCore.Utils.Log;
+using AppSettings = Netcore.Notification.Models.AppSettings;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
@@ -139,7 +140,7 @@ namespace Netcore.Notification.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return null;
         }

@@ -1,4 +1,5 @@
 ﻿using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using System.Collections.Generic;
 
 namespace Netcore.Notification.Interfaces

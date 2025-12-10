@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -41,7 +42,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -99,7 +100,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return new VQMMSpin
             {
@@ -116,7 +117,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<VQMMSpin>();
             }
         }
@@ -128,7 +129,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<VQMMSpin>();
             }
         }
@@ -143,7 +144,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -163,7 +164,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Deposit>();
             }
         }
@@ -188,7 +189,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return (-99, -1);
             }
         }
@@ -207,7 +208,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
         public List<Quest> QuestGetPrizeByAccount(long accountId)
@@ -221,7 +222,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Quest>();
             }
         }
@@ -234,7 +235,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<ExchangeRate>();
             }
         }
@@ -251,7 +252,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Quest>();
             }
         }
@@ -270,7 +271,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -287,7 +288,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -305,7 +306,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -330,7 +331,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return (-99, -1);
             }
         }
@@ -355,7 +356,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return (-99, -1);
             }
         }

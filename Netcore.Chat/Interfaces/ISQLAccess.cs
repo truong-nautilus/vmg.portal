@@ -1,4 +1,5 @@
 ﻿using Netcore.Chat.Models;
+using AppSettings = Netcore.Chat.Models.AppSettings;
 using System.Collections.Generic;
 
 namespace Netcore.Chat.Interfaces

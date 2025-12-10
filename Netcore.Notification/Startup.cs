@@ -7,6 +7,7 @@ using Netcore.Notification.Controllers;
 using Netcore.Notification.DataAccess;
 using Netcore.Notification.Hubs;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Extensions;
 
 namespace Netcore.Notification
@@ -50,13 +51,13 @@ namespace Netcore.Notification
             {
                 app.UseHsts();
             }
-            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
-            app.UseMvc();
             app.UseExtentions();
-            app.UseSignalR(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<GateHub>("/gateHub");
+                endpoints.MapHub<GateHub>("/gateHub");
+                endpoints.MapControllers();
             });
         }
     }

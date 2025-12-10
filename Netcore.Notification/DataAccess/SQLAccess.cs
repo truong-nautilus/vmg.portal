@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<SystemNotification>();
             }
         }
@@ -57,7 +58,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<SystemNotification>();
             }
         }
@@ -72,7 +73,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<LobbyText>();
             }
         }
@@ -90,7 +91,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<UserNotification>();
             }
         }
@@ -108,7 +109,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<UserNotification>();
             }
         }
@@ -127,7 +128,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return 0;
             }
         }
@@ -147,7 +148,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return string.Empty;
             }
         }
@@ -167,7 +168,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -187,7 +188,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<UserNotification>();
             }
         }
@@ -210,7 +211,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return false;
             }
         }
@@ -229,7 +230,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new Football();
             }
         }
@@ -243,7 +244,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Football>();
             }
         }
@@ -260,7 +261,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Football>();
             }
         }
@@ -276,7 +277,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<FootballGiftPrize>();
             }
         }
@@ -301,7 +302,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 Balance = 0;
                 return -99;
             }
@@ -317,7 +318,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<Football>();
             }
         }
@@ -331,7 +332,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<FootballGiftPrize>();
             }
         }
@@ -355,7 +356,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -382,7 +383,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return -99;
             }
         }
@@ -396,7 +397,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<FootballPlayer>();
             }
         }
@@ -412,7 +413,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<FootballBetAccount>();
             }
         }
@@ -426,7 +427,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<FootballTime>();
             }
         }
@@ -445,7 +446,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<LoyaltyAccount>();
             }
         }
@@ -463,7 +464,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new List<LoyaltyAccount>();
             }
         }
@@ -479,7 +480,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return new LoyaltyAccount();
             }
         }
@@ -487,7 +488,7 @@ namespace Netcore.Notification.DataAccess
         {
             try
             {
-                NLogManager.LogMessage(string.Format("GetStar =>> accountID:{0} | userName: {1}, AccountPrizeId: {2}, ClientIP:{3} ", accountID, userName, prizeId, clientIP));
+                NLogManager.Info(string.Format("GetStar =>> accountID:{0} | userName: {1}, AccountPrizeId: {2}, ClientIP:{3} ", accountID, userName, prizeId, clientIP));
                 var pars = new SqlParameter[6];
                 pars[0] = new SqlParameter("@_AccountId", accountID);
                 pars[1] = new SqlParameter("@_Username", userName);
@@ -502,7 +503,7 @@ namespace Netcore.Notification.DataAccess
             }
             catch (Exception ex)
             {
-                NLogManager.LogError(ex.Message);
+                NLogManager.Error(ex.ToString());
                 balance = 0;
                 return -99;
             }
@@ -532,12 +533,12 @@ namespace Netcore.Notification.DataAccess
                 {
                     long.TryParse(pars[5].Value.ToString(), out balance);
                 }
-                NLogManager.LogInfo(string.Format("ShareProfit: AccountId={0}|BetValue={1} : response={2}", accountId, prizeValue, response));
+                NLogManager.Info(string.Format("ShareProfit: AccountId={0}|BetValue={1} : response={2}", accountId, prizeValue, response));
                 return (response, balance);
             }
             catch (Exception exception)
             {
-                NLogManager.LogException(exception);
+                NLogManager.Exception(exception);
                 return (-99, -1);
             }
         }
@@ -563,12 +564,12 @@ namespace Netcore.Notification.DataAccess
                 {
                     long.TryParse(pars[5].Value.ToString(), out balance);
                 }
-                NLogManager.LogInfo(string.Format("GetProfit: AccountId={0}|BetValue={1} : response={2}", accountId, totalCashFlow, response));
+                NLogManager.Info(string.Format("GetProfit: AccountId={0}|BetValue={1} : response={2}", accountId, totalCashFlow, response));
                 return (response, balance);
             }
             catch (Exception exception)
             {
-                NLogManager.LogException(exception);
+                NLogManager.Exception(exception);
                 return (-99, -1);
             }
         }
@@ -577,12 +578,12 @@ namespace Netcore.Notification.DataAccess
             try
             {
                 var lst = _dbHelper.GetListSP<ShareProfit>(eventConnectionString, "SP_ShareProfit_GetList");
-               // NLogManager.LogInfo(JsonConvert.SerializeObject(lst));
+               // NLogManager.Info(JsonConvert.SerializeObject(lst));
                 return lst;
             }
             catch (Exception exception)
             {
-                NLogManager.LogException(exception);
+                NLogManager.Exception(exception);
                 return new List<ShareProfit>();
             }
         }

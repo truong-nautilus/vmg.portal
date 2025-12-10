@@ -1,5 +1,5 @@
 ﻿using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -39,24 +39,24 @@ namespace NetCore.Utils
                 {
                     cts.CancelAfter(timeout);
                     string logMessage = string.Format("Đầu vào {0}: {1}", uri, JsonConvert.SerializeObject(data));
-                    NLogManager.LogInfo(logMessage);
+                    NLogManager.Info(logMessage);
                     var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                     var result = await _httpClient.PostAsync(uri, content, cts.Token).ConfigureAwait(false);
                     string resultContent = await result.Content.ReadAsStringAsync();
                     if (string.IsNullOrWhiteSpace(resultContent)) return default(T);
                     if (isLog)
-                        NLogManager.LogInfo("Đầu ra: " + resultContent);
+                        NLogManager.Info("Đầu ra: " + resultContent);
                     return JsonConvert.DeserializeObject<T>(resultContent);
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
         }
@@ -74,7 +74,7 @@ namespace NetCore.Utils
                     cts.CancelAfter(timeout);
 
                     string logMessage = string.Format("Đầu vào {0}: {1}", uri, JsonConvert.SerializeObject(data));
-                    NLogManager.LogInfo(logMessage);
+                    NLogManager.Info(logMessage);
                     var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                     _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
                     if (dictionary.Count > 0)
@@ -88,18 +88,18 @@ namespace NetCore.Utils
                     string resultContent = await result.Content.ReadAsStringAsync();
                     if (string.IsNullOrWhiteSpace(resultContent)) return default(T);
                     if (isLog)
-                        NLogManager.LogInfo("Đầu ra: " + resultContent);
+                        NLogManager.Info("Đầu ra: " + resultContent);
                     return JsonConvert.DeserializeObject<T>(resultContent);
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
         }
@@ -117,23 +117,23 @@ namespace NetCore.Utils
                     cts.CancelAfter(timeout);
 
                     string logMessage = string.Format("Đầu vào {0}: {1}", uri, JsonConvert.SerializeObject(data));
-                    NLogManager.LogInfo(logMessage);
+                    NLogManager.Info(logMessage);
                     var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                     _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
                     var result = await _httpClient.PostAsync(uri, content, cts.Token).ConfigureAwait(false);
                     string resultContent = await result.Content.ReadAsStringAsync();
                     if (isLog)
-                        NLogManager.LogInfo("Đầu ra: " + resultContent);
+                        NLogManager.Info("Đầu ra: " + resultContent);
                     return resultContent;
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return string.Empty;
         }
@@ -152,7 +152,7 @@ namespace NetCore.Utils
 
                     {
                         string logMessage = string.Format("Đầu vào {0}: {1}", uri, JsonConvert.SerializeObject(data));
-                        NLogManager.LogInfo(logMessage);
+                        NLogManager.Info(logMessage);
                         var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
                         _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
                         if (dictionary.Count > 0)
@@ -165,18 +165,18 @@ namespace NetCore.Utils
                         var result = await _httpClient.PostAsync(uri, content, cts.Token).ConfigureAwait(false);
                         string resultContent = await result.Content.ReadAsStringAsync();
                         if (isLog)
-                            NLogManager.LogInfo("Đầu ra: " + resultContent);
+                            NLogManager.Info("Đầu ra: " + resultContent);
                         return resultContent;
                     }
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return string.Empty;
         }
@@ -205,19 +205,19 @@ namespace NetCore.Utils
                         var content = await response.Content.ReadAsStringAsync();
                         if (string.IsNullOrWhiteSpace(content)) throw new Exception();
                         if (isLog)
-                            NLogManager.LogInfo(content);
+                            NLogManager.Info(content);
                         return JsonConvert.DeserializeObject<T>(content);
                     }
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return default(T);
             }
         }
@@ -239,17 +239,17 @@ namespace NetCore.Utils
                     var content = await response.Content.ReadAsStringAsync();
                     if (string.IsNullOrWhiteSpace(content)) throw new Exception();
                     if (isLog)
-                        NLogManager.LogInfo(content);
+                        NLogManager.Info(content);
                     return content;
                 }
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return string.Empty;
         }
@@ -274,7 +274,7 @@ namespace NetCore.Utils
                             // by calling .Result you are synchronously reading the result
                             string content = responseContent.ReadAsStringAsync().Result;
                             if (isLog)
-                                NLogManager.LogInfo(content);
+                                NLogManager.Info(content);
                             return JsonConvert.DeserializeObject<T>(content);
                         }
                     }
@@ -282,11 +282,11 @@ namespace NetCore.Utils
             }
             catch (TaskCanceledException ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return default(T);
         }
@@ -310,7 +310,7 @@ namespace NetCore.Utils
         //                {
         //                    pageContent = ioStream.ReadToEnd();
         //                    if (isLog)
-        //                        NLogManager.LogInfo("Đầu ra: " + pageContent);
+        //                        NLogManager.Info("Đầu ra: " + pageContent);
         //                    return pageContent;
         //                }
         //            }
@@ -318,7 +318,7 @@ namespace NetCore.Utils
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogException(ex);
+        //        NLogManager.Exception(ex);
         //    }
         //    return string.Empty;
         //}
@@ -347,14 +347,14 @@ namespace NetCore.Utils
         //                var responseString = new StreamReader(responseStream).ReadToEnd();
         //                if (string.IsNullOrWhiteSpace(responseString)) return default(T);
         //                if (isLog)
-        //                    NLogManager.LogInfo("Đầu ra: " + responseString);
+        //                    NLogManager.Info("Đầu ra: " + responseString);
         //                return JsonConvert.DeserializeObject<T>(responseString);
         //            }
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogException(ex);
+        //        NLogManager.Exception(ex);
         //        return default(T);
         //    }
         //}
@@ -382,14 +382,14 @@ namespace NetCore.Utils
         //            {
         //                var responseString = new StreamReader(responseStream).ReadToEnd();
         //                if (isLog)
-        //                    NLogManager.LogInfo("Đầu ra: " + responseString);
+        //                    NLogManager.Info("Đầu ra: " + responseString);
         //                return responseString;
         //            }
         //        }
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogException(ex);
+        //        NLogManager.Exception(ex);
 
         //    }
         //    return string.Empty;

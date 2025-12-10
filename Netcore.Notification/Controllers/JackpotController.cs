@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -52,7 +53,7 @@ namespace Netcore.Notification.Controllers
                         continue;
                     }
                     var strJackpot = await _dataService.GetAsync(lstUrl[i], false);
-                    NLogManager.LogInfo(lstUrl[i] + " " + strJackpot);
+                    NLogManager.Info(lstUrl[i] + " " + strJackpot);
 
                     var jackpot = new Jackpot
                     {
@@ -64,7 +65,7 @@ namespace Netcore.Notification.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
             await _connection._hubContext.Clients.All.SendAsync("jackpots", lstJackpot.Values.ToList());
 

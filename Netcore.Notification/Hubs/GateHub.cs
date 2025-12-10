@@ -3,10 +3,11 @@ using Microsoft.Extensions.Options;
 using Netcore.Notification.Controllers;
 using Netcore.Notification.DataAccess;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils;
 using NetCore.Utils.Cache;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using NetCore.Utils.Sessions;
 using Newtonsoft.Json;
 using System;
@@ -64,7 +65,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -76,7 +77,7 @@ namespace Netcore.Notification.Hubs
             {
                 if (accountId < 1 || string.IsNullOrEmpty(username))
                 {
-                    NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                    NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                     return -1001;
                 }
                 _connection.PlayerConnect(accountId, Context.ConnectionId);
@@ -91,7 +92,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -104,7 +105,7 @@ namespace Netcore.Notification.Hubs
             {
                 if (accountId < 1 || string.IsNullOrEmpty(username))
                 {
-                    NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                    NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                     return -1001;
                 }
                 _connection.PlayerConnect(accountId, Context.ConnectionId);
@@ -119,7 +120,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -133,7 +134,7 @@ namespace Netcore.Notification.Hubs
             {
                 if (accountId < 1 || string.IsNullOrEmpty(username))
                 {
-                    NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                    NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                     return -1001;
                 }
                 _connection.PlayerConnect(accountId, Context.ConnectionId);
@@ -148,7 +149,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -162,7 +163,7 @@ namespace Netcore.Notification.Hubs
             {
                 if (accountId < 1 || string.IsNullOrEmpty(username))
                 {
-                    NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                    NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                     return -1001;
                 }
                 var notifications = _notificationHandler.DeleteUserNotify(id, accountId, username);
@@ -171,7 +172,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -182,7 +183,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return -1001;
             }
             try
@@ -203,7 +204,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -216,7 +217,7 @@ namespace Netcore.Notification.Hubs
             {
                 if (accountId < 1 || string.IsNullOrEmpty(username))
                 {
-                    NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                    NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                     return -1001;
                 }
                 _connection.PlayerConnect(accountId, Context.ConnectionId);
@@ -230,7 +231,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return -99;
         }
@@ -244,7 +245,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -256,7 +257,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -267,7 +268,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("footballGetGiftResult", Enums.ErrorCode.Exception);
             }
         }
@@ -276,11 +277,11 @@ namespace Netcore.Notification.Hubs
         {
             long accountId = _accountSession.AccountID;
             string username = _accountSession.NickName;
-            NLogManager.LogInfo(string.Format("{0} - {1}", accountId, username));
+            NLogManager.Info(string.Format("{0} - {1}", accountId, username));
 
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -294,7 +295,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -304,7 +305,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -314,7 +315,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -324,7 +325,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -334,7 +335,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -344,7 +345,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -354,7 +355,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -364,7 +365,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -374,7 +375,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -384,7 +385,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username) || type < 0 || type > 1 || prizeId <= 0)
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -396,7 +397,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -408,7 +409,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -418,7 +419,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -428,7 +429,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -438,7 +439,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("resultOfAccount", Enums.ErrorCode.Exception);
             }
         }
@@ -449,7 +450,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -459,7 +460,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("footballTime", Enums.ErrorCode.Exception);
             }
         }
@@ -468,10 +469,10 @@ namespace Netcore.Notification.Hubs
         {
             long accountId = _accountSession.AccountID;
             string username = _accountSession.NickName;
-            NLogManager.LogInfo("FootballBet: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress + "|prize: " + prizeId + "|betvalue: " + betValue);
+            NLogManager.Info("FootballBet: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress + "|prize: " + prizeId + "|betvalue: " + betValue);
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             if (betValue <= 0 || prizeId <= 0)
@@ -486,7 +487,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("resultBet", Enums.ErrorCode.Exception);
             }
         }
@@ -503,7 +504,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -513,7 +514,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -523,7 +524,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -533,7 +534,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -543,7 +544,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -553,7 +554,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -563,7 +564,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username) || prizeId <= 0)
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -575,7 +576,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -619,7 +620,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 Clients.Caller.SendAsync("shareProfitResult", Enums.ErrorCode.Exception);
             }
         }
@@ -641,7 +642,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 Clients.Caller.SendAsync("listShareProfit", Enums.ErrorCode.Exception);
             }
         }
@@ -690,7 +691,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("getProfitResult", Enums.ErrorCode.Exception);
             }
         }
@@ -718,7 +719,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("getTimeResult", Enums.ErrorCode.Exception);
             }
         }
@@ -735,7 +736,7 @@ namespace Netcore.Notification.Hubs
             {
                 return;
             }
-            NLogManager.LogInfo($"accountid: {accountId} nickname: {_accountSession.NickName} spin");
+            NLogManager.Info($"accountid: {accountId} nickname: {_accountSession.NickName} spin");
             if (_accountSession.IsAgency)
             {
                 await Clients.Caller.SendAsync("VQMMSpinResult", Enums.ErrorCode.ERR_IS_AGENCY);
@@ -754,7 +755,7 @@ namespace Netcore.Notification.Hubs
                 return;
             }
             var res = _jobAccess.EventVQMMSpin(accountId, _accountSession.NickName);
-            NLogManager.LogInfo(JsonConvert.SerializeObject(res));
+            NLogManager.Info(JsonConvert.SerializeObject(res));
             if (res.GameId == 4 || res.GameId == 5 || res.GameId == 6)
             {
                 string url = "";
@@ -770,7 +771,7 @@ namespace Netcore.Notification.Hubs
                     url = _settings.ExplosionUrl;
                 var resMongo = _dataService.PostAsync(url + "api/SetFreeSpin", data, true).Result;
 
-                NLogManager.LogInfo("VQMMSpinResult freespin " + JsonConvert.SerializeObject(resMongo));
+                NLogManager.Info("VQMMSpinResult freespin " + JsonConvert.SerializeObject(resMongo));
             }
 
             await Clients.Caller.SendAsync("VQMMSpinResult", res, _jobAccess.VQMMGetAllPrize());
@@ -795,7 +796,7 @@ namespace Netcore.Notification.Hubs
             }
 
             var res = _jobAccess.EventVQMMGet(accountId);
-            NLogManager.LogInfo(key + " " + res);
+            NLogManager.Info(key + " " + res);
 
             await Clients.Caller.SendAsync("VQMMGetResult", res);
         }
@@ -822,7 +823,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -832,7 +833,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -842,7 +843,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username) || prizeId <= 0)
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -852,7 +853,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
 
@@ -866,7 +867,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -876,7 +877,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
         public async Task QuestGetMoney(int prizeId)
@@ -885,7 +886,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username) || prizeId <= 0)
             {
-                NLogManager.LogInfo("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("PlayNow-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -895,7 +896,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
             }
         }
         public async Task QuestGetListExchangeRate()
@@ -904,7 +905,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -914,7 +915,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestGetListResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -924,7 +925,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -934,7 +935,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestGetListResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -944,7 +945,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -971,7 +972,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestGetAwardResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -981,7 +982,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestLoginDaily-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestLoginDaily-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -992,7 +993,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestLoginDailyResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -1003,7 +1004,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -1013,7 +1014,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestPointBalanceResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -1023,7 +1024,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -1063,7 +1064,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestExchangePointResult", new { code = Enums.ErrorCode.Exception });
             }
         }
@@ -1073,7 +1074,7 @@ namespace Netcore.Notification.Hubs
             string username = _accountSession.NickName;
             if (accountId < 1 || string.IsNullOrEmpty(username))
             {
-                NLogManager.LogInfo("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
+                NLogManager.Info("QuestGetListExchangeRate-NotAuthen: AccountId: " + accountId + "|ClientIP: " + _accountSession.IpAddress);
                 return;
             }
             try
@@ -1083,7 +1084,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.PublishException(ex);
+                NLogManager.Exception(ex);
                 await Clients.Caller.SendAsync("QuestAttendanceResult", new { code = Enums.ErrorCode.Exception });
             }
 
@@ -1103,7 +1104,7 @@ namespace Netcore.Notification.Hubs
                 {
                     return base.OnConnectedAsync();
                 }
-                NLogManager.LogInfo($"Account: {accountId}  {username} connect");
+                NLogManager.Info($"Account: {accountId}  {username} connect");
 
                 _connection.PlayerConnect(accountId, Context.ConnectionId);
                 var player = _playerHandler.GetPlayer(accountId);
@@ -1114,7 +1115,7 @@ namespace Netcore.Notification.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
             return base.OnConnectedAsync();
         }

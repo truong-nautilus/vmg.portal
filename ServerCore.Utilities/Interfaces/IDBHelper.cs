@@ -96,6 +96,10 @@ namespace NetCore.Utils.Interfaces
         List<T> GetListSP<T>(string SPName);
 
         List<T> GetListSP<T>(string SPName, params SqlParameter[] Parameters);
+        
+        List<T> GetListSP<T>(string connectionString, string SPName);
+
+        List<T> GetListSP<T>(string connectionString, string SPName, params SqlParameter[] Parameters);
 
         #endregion
 

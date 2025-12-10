@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Netcore.Chat.Interfaces;
 using Netcore.Chat.Models;
-using NetCore.Utils.Log;
+using AppSettings = Netcore.Chat.Models.AppSettings;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -72,7 +73,7 @@ namespace Netcore.Chat.Controllers
                 }
                 catch (Exception ex)
                 {
-                    NLogManager.LogException(ex);
+                    NLogManager.Exception(ex);
                 }
             }
 
@@ -192,11 +193,11 @@ namespace Netcore.Chat.Controllers
 
                     input = regx.Replace(input, ReplaceVNs[key]);
 
-                    //NLogManager.LogInfo(key + " : " + input);
+                    //NLogManager.Info(key + " : " + input);
                 }
                 catch (Exception ex)
                 {
-                    NLogManager.LogException(ex);
+                    NLogManager.Exception(ex);
                 }
             }
 
@@ -264,7 +265,7 @@ namespace Netcore.Chat.Controllers
                 }
                 catch (Exception ex)
                 {
-                    NLogManager.LogException(ex);
+                    NLogManager.Exception(ex);
                 }
             }
 
@@ -302,7 +303,7 @@ namespace Netcore.Chat.Controllers
         //            File.AppendAllText(BANUSERS_FILE, Environment.NewLine + username);
 
         //            BanUsers.Add(username);
-        //            NLogManager.LogInfo(string.Format("Admins has been banned user: username={0}", username));
+        //            NLogManager.Info(string.Format("Admins has been banned user: username={0}", username));
 
         //            return true;
         //        }
@@ -323,7 +324,7 @@ namespace Netcore.Chat.Controllers
         //            File.AppendAllText(BADLINKS_FILE, Environment.NewLine + link);
 
         //            BadLinks.Add(link);
-        //            NLogManager.LogInfo(string.Format("Admins has been added bad link: link={0}", link));
+        //            NLogManager.Info(string.Format("Admins has been added bad link: link={0}", link));
 
         //            return true;
         //        }
@@ -345,7 +346,7 @@ namespace Netcore.Chat.Controllers
         //            File.AppendAllText(BADWORDS_FILE, Environment.NewLine + word);
 
         //            BadWords.Add(word);
-        //            NLogManager.LogInfo(string.Format("Admins has been added bad word: word={0}", word));
+        //            NLogManager.Info(string.Format("Admins has been added bad word: word={0}", word));
 
         //            return true;
         //        }
@@ -391,7 +392,7 @@ namespace Netcore.Chat.Controllers
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogException(ex);
+        //        NLogManager.Exception(ex);
         //    }
 
         //}
@@ -423,7 +424,7 @@ namespace Netcore.Chat.Controllers
         //    }
         //    catch (Exception ex)
         //    {
-        //        NLogManager.LogException(ex);
+        //        NLogManager.Exception(ex);
         //    }
 
         //}

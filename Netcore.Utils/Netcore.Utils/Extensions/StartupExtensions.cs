@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using NetCore.Utils.Cache;
-using NetCore.Utils.Database;
+using ServerCore.Utilities.Database;
 using NetCore.Utils.Filters;
 using NetCore.Utils.Interfaces;
 using NetCore.Utils.Sessions;
@@ -89,7 +89,7 @@ namespace NetCore.Utils.Extensions
                 hubOptions.EnableDetailedErrors = true;
                 //hubOptions.SupportedProtocols = "WebSockets";
             })
-            .AddJsonProtocol(options =>
+            .AddNewtonsoftJsonProtocol(options =>
             {
                 options.PayloadSerializerSettings.ContractResolver =
                 new DefaultContractResolver();
@@ -175,8 +175,6 @@ namespace NetCore.Utils.Extensions
             });
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
-            app.UseHttpsRedirection();
-            app.UseMvc();
             return app;
         }
     }

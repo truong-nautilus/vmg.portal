@@ -9,6 +9,7 @@ using Netcore.Chat.DataAccess;
 using Netcore.Chat.Hubs;
 using Netcore.Chat.Interfaces;
 using Netcore.Chat.Models;
+using AppSettings = Netcore.Chat.Models.AppSettings;
 using NetCore.Utils;
 using NetCore.Utils.Extensions;
 using NetCore.Utils.Interfaces;
@@ -64,15 +65,13 @@ namespace Netcore.Chat
             app.UseCookiePolicy();
 
             app.UseExtentions();
-            app.UseSignalR(routes =>
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapHub<ChatHub>("/chatHub");
-            });
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
+                endpoints.MapHub<ChatHub>("/chatHub");
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

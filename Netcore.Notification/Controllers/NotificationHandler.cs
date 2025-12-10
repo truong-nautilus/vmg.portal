@@ -2,8 +2,9 @@
 using Microsoft.Extensions.Options;
 using Netcore.Notification.DataAccess;
 using Netcore.Notification.Models;
+using AppSettings = Netcore.Notification.Models.AppSettings;
 using NetCore.Utils.Interfaces;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -104,7 +105,7 @@ namespace Netcore.Notification.Controllers
                 //                break;
                 //        }
                 //        string content = string.Format("Chúc mừng {0} trúng hũ {1} game {2}", item.UserName, item.Amount.ToString("n0"), gameName);
-                //        NLogManager.LogInfo(content);
+                //        NLogManager.Info(content);
                 //        if (!string.IsNullOrEmpty(_settings.OneSignal))
                 //        {
                 //            var url = _settings.OneSignal + "?content=" + content;
@@ -119,7 +120,7 @@ namespace Netcore.Notification.Controllers
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
 

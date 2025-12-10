@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Options;
 using Netcore.Chat.Controllers;
 using Netcore.Chat.Models;
-using NetCore.Utils.Log;
+using AppSettings = Netcore.Chat.Models.AppSettings;
+using ServerCore.Utilities.Utils;
 using NetCore.Utils.Sessions;
 using Newtonsoft.Json;
 using System;
@@ -35,8 +36,8 @@ namespace Netcore.Chat.Hubs
         [HubMethodName("SendMessage")]
         public bool SendMessage(string message, string channelId)
         {
-            NLogManager.LogInfo(string.Format("message: {0}, channelId: {1}", message, channelId));
-            NLogManager.LogInfo(channelId);
+            NLogManager.Info(string.Format("message: {0}, channelId: {1}", message, channelId));
+            NLogManager.Info(channelId);
             if (string.IsNullOrEmpty(channelId) || string.IsNullOrEmpty(message))
                 return false;
             return _chatController.SendMessage(Context.ConnectionId, _accountSession.AccountID, message, channelId);
@@ -47,7 +48,7 @@ namespace Netcore.Chat.Hubs
         {
             try
             {
-                NLogManager.LogInfo("channelId: " + channelId);
+                NLogManager.Info("channelId: " + channelId);
                 if (string.IsNullOrEmpty(channelId))
                     return false;
 
@@ -58,7 +59,7 @@ namespace Netcore.Chat.Hubs
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
                 return false;
             }
         }

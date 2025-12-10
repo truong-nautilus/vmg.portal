@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using NetCore.Utils.Extensions;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 using System.Linq;
 using System.Net;
@@ -24,7 +24,7 @@ namespace NetCore.Utils.Filters
             try
             {
                 var remoteIp = context.HttpContext.GetRemoteIPAddress();
-                //NLogManager.LogInfo(string.Format(
+                //NLogManager.Info(string.Format(
                 //    "Remote IpAddress: {0} SafeList: {1}", remoteIp, _safelist));
 
                 string[] ip = _safelist.Split(';');
@@ -49,7 +49,7 @@ namespace NetCore.Utils.Filters
 
                 if (badIp)
                 {
-                    NLogManager.LogInfo(string.Format(
+                    NLogManager.Info(string.Format(
                         "Forbidden Request from Remote IP address: {0}", remoteIp));
                     context.Result = new StatusCodeResult(401);
                     return;
@@ -59,7 +59,7 @@ namespace NetCore.Utils.Filters
             }
             catch (Exception ex)
             {
-                NLogManager.LogException(ex);
+                NLogManager.Exception(ex);
             }
         }
     }

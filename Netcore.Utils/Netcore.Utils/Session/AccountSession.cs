@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using NetCore.Utils.Log;
+using ServerCore.Utilities.Utils;
 using System;
 
 namespace NetCore.Utils.Sessions

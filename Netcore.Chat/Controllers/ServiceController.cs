@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Netcore.Chat.Models;
-using NetCore.Utils.Log;
+using AppSettings = Netcore.Chat.Models.AppSettings;
+using ServerCore.Utilities.Utils;
 using NetCore.Utils.Sessions;
 
 namespace Netcore.Chat.Controllers
@@ -26,7 +27,7 @@ namespace Netcore.Chat.Controllers
         [Route("SendMessage")]
         public int SendMessage(int accountId, string nickname, string channelId, string message)
         {
-            NLogManager.LogMessage(string.Format("BOT Sending message: accountId: {0} - not has channel: {1} - content={2}", accountId, channelId, message));
+            NLogManager.Info(string.Format("BOT Sending message: accountId: {0} - not has channel: {1} - content={2}", accountId, channelId, message));
             _chatController.BotSendMessage(message, channelId, accountId, nickname);
             return 1;
         }
