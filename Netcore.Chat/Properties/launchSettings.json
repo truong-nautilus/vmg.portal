@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "NetCore.Chat": {
+    "Netcore.Chat": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://localhost:51821",

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace NetCore.Chat.Models
+namespace Netcore.Chat.Models
 {
     public class ChatMessage
     {

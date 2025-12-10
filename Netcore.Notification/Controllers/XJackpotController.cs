@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using NetCore.Notification.Models;
+using Netcore.Notification.Models;
 using NetCore.Utils.Interfaces;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace NetCore.Notification.Controllers
+namespace Netcore.Notification.Controllers
 {
     public class XJackpotController
     {

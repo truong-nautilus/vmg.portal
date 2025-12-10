@@ -1,7 +1,7 @@
-﻿using NetCore.Chat.Models;
+﻿using Netcore.Chat.Models;
 using System.Collections.Generic;
 
-namespace NetCore.Chat.Interfaces
+namespace Netcore.Chat.Interfaces
 {
     public interface ISQLAccess
     {

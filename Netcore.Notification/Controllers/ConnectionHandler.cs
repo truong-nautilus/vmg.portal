@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
-using NetCore.Notification.Hubs;
+using Netcore.Notification.Hubs;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NetCore.Notification.Controllers
+namespace Netcore.Notification.Controllers
 {
     public class ConnectionHandler
     {

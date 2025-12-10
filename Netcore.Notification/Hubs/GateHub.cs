@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using NetCore.Notification.Controllers;
-using NetCore.Notification.DataAccess;
-using NetCore.Notification.Models;
+using Netcore.Notification.Controllers;
+using Netcore.Notification.DataAccess;
+using Netcore.Notification.Models;
 using NetCore.Utils;
 using NetCore.Utils.Cache;
 using NetCore.Utils.Interfaces;
@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
 
-namespace NetCore.Notification.Hubs
+namespace Netcore.Notification.Hubs
 {
     public class GateHub : Hub
     {

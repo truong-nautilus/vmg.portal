@@ -12,7 +12,7 @@ using ServerCore.DataAccess.DTO;
 using Microsoft.Extensions.Options;
 using ServerCore.PortalAPI.Models;
 using System.Data;
-using NetCore.Gateway.Interfaces;
+using Netcore.Gateway.Interfaces;
 using MongoDB.Bson.IO;
 using Newtonsoft.Json;
 namespace ServerCore.DataAccess.DAOImpl

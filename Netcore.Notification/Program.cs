@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace NetCore.Notification
+namespace Netcore.Notification
 {
     public class Program
     {

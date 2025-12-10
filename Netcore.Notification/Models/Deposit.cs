@@ -1,4 +1,4 @@
-﻿namespace NetCore.Notification.Models
+﻿namespace Netcore.Notification.Models
 {
     public class Deposit
     {

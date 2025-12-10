@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetCore.Notification.DataAccess;
-using NetCore.Notification.Models;
+using Netcore.Notification.DataAccess;
+using Netcore.Notification.Models;
 using NetCore.Utils.Sessions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace NetCore.Notification.Controllers
+namespace Netcore.Notification.Controllers
 {
     [Route("[controller]")]
     [ApiController]

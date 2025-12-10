@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using NetCore.Chat.Hubs;
-using NetCore.Chat.Interfaces;
-using NetCore.Chat.Models;
+using Netcore.Chat.Hubs;
+using Netcore.Chat.Interfaces;
+using Netcore.Chat.Models;
 using NetCore.Utils.Interfaces;
 using NetCore.Utils.Log;
 using NetCore.Utils.Sessions;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NetCore.Chat.Controllers
+namespace Netcore.Chat.Controllers
 {
     public class ChatController
     {

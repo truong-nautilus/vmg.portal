@@ -28,9 +28,6 @@ using ServerCore.Utilities.Interfaces;
 using ServerCore.Utilities.Sessions;
 using ServerCore.Utilities.Utils;
 using System.Text;
-using System.Linq;
-using Microsoft.OpenApi.Models;
-using System.Collections.Generic;
 
 namespace ServerCore.PortalAPI
 {
@@ -70,12 +67,7 @@ namespace ServerCore.PortalAPI
             // {
             //     options.Filters.Add(new CorsAuthorizationFilterFactory("CorsPolicy"));
             // });
-            services.AddControllers(options => 
-            {
-                options.EnableEndpointRouting = false;
-                // Require explicit HTTP method attributes for API explorer
-                options.Conventions.Add(new Conventions.RequireHttpMethodConvention());
-            }).AddNewtonsoftJson();
+            services.AddControllers(options => options.EnableEndpointRouting = false).AddNewtonsoftJson();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -104,7 +96,6 @@ namespace ServerCore.PortalAPI
 
             NLogManager.Info("appSettings.IsRedisCache: " + appSettings.IsRedisCache);
             services.AddHttpContextAccessor();
-            services.AddMemoryCache(); // Add IMemoryCache for CacheHandler
             if (appSettings.IsRedisCache)
             {
                 NLogManager.Info("Config RedisCache");
@@ -149,70 +140,6 @@ namespace ServerCore.PortalAPI
             services.AddSingleton<WalletService>();
             services.AddSingleton<TatumService>();
             services.AddSingleton<IVMGDAO, VMGDAOImpl>();
-            services.AddScoped<IAdminDbService, AdminDbService>();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.EnableAnnotations();
-                
-                // Portal API (Client-facing)
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "VMG Portal API", 
-                    Version = "v1",
-                    Description = "API cho hệ thống VMG Portal - Quản lý tài khoản, thanh toán, game và các dịch vụ liên quan",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "VMG Support",
-                        Email = "support@vmg.vn"
-                    }
-                });
-                
-                // Admin API (CMS/Admin Panel)
-                c.SwaggerDoc("admin", new OpenApiInfo
-                {
-                    Title = "VMG Admin API",
-                    Version = "v1",
-                    Description = "Admin/CMS APIs cho quản lý hệ thống VMG Portal - Dashboard, User Management, Reports, Settings",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "VMG Support",
-                        Email = "support@vmg.vn"
-                    }
-                });
-                
-                // Include XML comments
-                var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = System.IO.Path.Combine(System.AppContext.BaseDirectory, xmlFile);
-                if (System.IO.File.Exists(xmlPath))
-                {
-                    c.IncludeXmlComments(xmlPath);
-                }
-                
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new List<string>()
-                    }
-                });
-            });
-            services.AddSwaggerGenNewtonsoftSupport();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -233,15 +160,6 @@ namespace ServerCore.PortalAPI
             app.UseCookiePolicy();
             app.UseMiddleware<TokenValidationMiddleware>();
             app.UseAuthentication();
-            
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "VMG Portal API V1");
-                c.SwaggerEndpoint("/swagger/admin/swagger.json", "VMG Admin API V1");
-                c.RoutePrefix = "swagger"; 
-            });
-
             app.UseMvc();
         }
     }

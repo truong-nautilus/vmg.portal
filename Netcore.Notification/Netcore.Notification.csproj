@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NetCore.Utils\NetCore.Utils\NetCore.Utils.csproj" />
+    <ProjectReference Include="..\Netcore.Utils\Netcore.Utils\NetCore.Utils.csproj" />
   </ItemGroup>
 
 </Project>

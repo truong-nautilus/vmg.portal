@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "NetCore.Notification": {
+    "Netcore.Notification": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

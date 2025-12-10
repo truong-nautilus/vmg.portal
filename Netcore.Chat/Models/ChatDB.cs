@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCore.Chat.Models
+namespace Netcore.Chat.Models
 {
 
     public class ChatDB

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace NetCore.Notification.Models
+namespace Netcore.Notification.Models
 {
     public class XJackpotInfo
     {

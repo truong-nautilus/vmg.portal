@@ -139,33 +139,7 @@ namespace ServerCore.PortalAPI.Controllers
 
         }
 
-        /// <summary>
-        /// Đăng nhập vào hệ thống
-        /// </summary>
-        /// <param name="loginAccount">Thông tin đăng nhập</param>
-        /// <returns>Thông tin tài khoản và access token</returns>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Authen/Login
-        ///     {
-        ///        "userName": "admin",
-        ///        "password": "admin",
-        ///        "platformId": 1,
-        ///        "merchantId": 1,
-        ///        "uiid": "device-unique-id",
-        ///        "captchaText": "",
-        ///        "captchaToken": ""
-        ///     }
-        ///
-        /// </remarks>
-        /// <response code="200">Đăng nhập thành công</response>
-        /// <response code="400">Thông tin đăng nhập không hợp lệ</response>
-        /// <response code="401">Sai tên đăng nhập hoặc mật khẩu</response>
         [HttpPost("Login")]
-        [ProducesResponseType(typeof(ResponseBuilder), 200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(401)]
         public ActionResult Login(LoginAccount loginAccount)
         {
             //var watch = Stopwatch.StartNew();
@@ -184,7 +158,7 @@ namespace ServerCore.PortalAPI.Controllers
             NLogManager.Info("Login");
             try
             {
-                NLogManager.Info("Login 1 " + JsonConvert.SerializeObject(loginAccount));
+                NLogManager.Info(JsonConvert.SerializeObject("Login 1 " + loginAccount));
 
                 //PolicyUtil.CheckNickName(userName);
                 if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
@@ -201,7 +175,6 @@ namespace ServerCore.PortalAPI.Controllers
 
                 if (platformId < (int)PlatformDef.ANDROID_PLATFORM || platformId > (int)PlatformDef.WEB_PLATFORM)
                 {
-                    NLogManager.Error($"PlatformId Invalid: {platformId}");
                     return Ok(new ResponseBuilder(ErrorCodes.PLATFORM_INVALID, lng));
                 }
 
@@ -245,7 +218,7 @@ namespace ServerCore.PortalAPI.Controllers
                 //elapsedMs = watch.ElapsedMilliseconds;
                 //NLogManager.Info(string.Format("LOGIN_LoginService: {0},{1}", userName, elapsedMs));
 
-                if ((response == (int)ErrorCodes.SUCCESS || response == (int)ErrorCodes.NEED_OTP_CODE) && accountInfo != null && !string.IsNullOrEmpty(accountInfo.AccessToken))
+                if (response == (int)ErrorCodes.SUCCESS || response == (int)ErrorCodes.NEED_OTP_CODE)
                 {
                     //watch.Restart();
                     CacheCounter.AccountActionDelete(userName, _loginActionName);
@@ -692,39 +665,7 @@ namespace ServerCore.PortalAPI.Controllers
             }
 
         }
-        
-        /// <summary>
-        /// Đăng ký tài khoản mới
-        /// </summary>
-        /// <param name="loginAccount">Thông tin đăng ký</param>
-        /// <returns>Thông tin tài khoản mới được tạo</returns>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Authen/Register
-        ///     {
-        ///        "userName": "newuser123",
-        ///        "password": "SecurePass123!",
-        ///        "nickName": "Player123",
-        ///        "platformId": 1,
-        ///        "merchantId": 1,
-        ///        "uiid": "device-unique-id",
-        ///        "captchaText": "ABC123",
-        ///        "captchaToken": "captcha-token-here"
-        ///     }
-        ///
-        /// Lưu ý:
-        /// - userName: 6-20 ký tự, chỉ chứa chữ cái và số
-        /// - password: Tối thiểu 6 ký tự
-        /// - captchaText và captchaToken: Bắt buộc để xác thực
-        /// </remarks>
-        /// <response code="200">Đăng ký thành công</response>
-        /// <response code="400">Thông tin đăng ký không hợp lệ</response>
-        /// <response code="409">Tài khoản đã tồn tại</response>
         [HttpPost("Register")]
-        [ProducesResponseType(typeof(ResponseBuilder), 200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(409)]
         public ActionResult<ResponseBuilder> Register(LoginAccount loginAccount)
         {
             string lng = Utils.GetLanguage(Request.HttpContext);
@@ -791,7 +732,6 @@ namespace ServerCore.PortalAPI.Controllers
         }
 
         //[HttpPost("CreateAccountTest")]
-        [NonAction]
         public ActionResult<ResponseBuilder> CreateAccountTest(LoginAccount loginAccount)
         {
             NLogManager.Info("RegisterCheck:" + JsonConvert.SerializeObject(loginAccount));
@@ -1215,7 +1155,7 @@ namespace ServerCore.PortalAPI.Controllers
             };
             return 0;
         }
-        private string GetLocationFromIP(string ipAddress)
+        public string GetLocationFromIP(string ipAddress)
         {
             try
             {

@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using ServerCore.Utilities.Database;
 using ServerCore.PortalAPI.Models;
-using NetCore.Gateway.Interfaces;
+using Netcore.Gateway.Interfaces;
 
 namespace ServerCore.DataAccess.DAOImpl
 {

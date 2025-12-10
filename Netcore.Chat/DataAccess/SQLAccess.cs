@@ -1,14 +1,14 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetCore.Chat.Interfaces;
-using NetCore.Chat.Models;
+using Netcore.Chat.Interfaces;
+using Netcore.Chat.Models;
 using NetCore.Utils.Interfaces;
 using NetCore.Utils.Log;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace NetCore.Chat.DataAccess
+namespace Netcore.Chat.DataAccess
 {
     public class SQLAccess : ISQLAccess
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCore.Notification.Models
+namespace Netcore.Notification.Models
 {
     public class ShareProfit
     {

@@ -1,5 +1,5 @@
-# Build image
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+# Use .NET Core 2.2 SDK for build (amd64 platform)
+FROM --platform=linux/amd64 mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
 WORKDIR /src
 
 # Copy project files
@@ -15,13 +15,9 @@ RUN dotnet build -c Release -o /app/build
 # Publish
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+# Runtime image (amd64 platform)
+FROM --platform=linux/amd64 mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
-
-# Install dependencies for System.Drawing.Common if needed
-RUN apt-get update && apt-get install -y libgdiplus
-
 COPY --from=build /app/publish .
 ENV ASPNETCORE_URLS=http://+:5001
 EXPOSE 5001

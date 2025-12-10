@@ -5,13 +5,13 @@ VisualStudioVersion = 17.6.33717.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCore.Utilities", "ServerCore.Utilities\ServerCore.Utilities.csproj", "{064C5A04-A99D-436C-A5E9-3ABEAE642DC2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Notification", "NetCore.Notification\NetCore.Notification.csproj", "{E4E35F7E-7390-421C-AB41-C3AEB063E437}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netcore.Notification", "Netcore.Notification\Netcore.Notification.csproj", "{E4E35F7E-7390-421C-AB41-C3AEB063E437}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerCore.PortalAPI", "NetCore.PortalAPI\ServerCore.PortalAPI\ServerCore.PortalAPI.csproj", "{BAA2CF5B-AF56-42E2-8511-60BD0D4B1133}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Chat", "NetCore.Chat\NetCore.Chat.csproj", "{F3EF120B-41C0-4B64-A2D5-72185779CC0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netcore.Chat", "Netcore.Chat\Netcore.Chat.csproj", "{F3EF120B-41C0-4B64-A2D5-72185779CC0D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Utils", "NetCore.Utils\NetCore.Utils\NetCore.Utils.csproj", "{3AE898D2-AEB1-48FE-B8A4-B33C360C777F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore.Utils", "Netcore.Utils\Netcore.Utils\NetCore.Utils.csproj", "{3AE898D2-AEB1-48FE-B8A4-B33C360C777F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

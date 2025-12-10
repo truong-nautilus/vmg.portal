@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using NetCore.Gateway.Interfaces;
+using Netcore.Gateway.Interfaces;
 using NetCore.Utils.Interfaces;
 using ServerCore.PortalAPI;
 using ServerCore.Utilities.Database;

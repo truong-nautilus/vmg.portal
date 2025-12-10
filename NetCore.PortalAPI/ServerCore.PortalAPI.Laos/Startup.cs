@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using NetCore.Gateway.Interfaces;
+using Netcore.Gateway.Interfaces;
 using PortalAPI.Services;
 using ServerCore.DataAccess;
 using ServerCore.DataAccess.DAO;

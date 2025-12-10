@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
-using NetCore.Chat.Controllers;
-using NetCore.Chat.Models;
+using Netcore.Chat.Controllers;
+using Netcore.Chat.Models;
 using NetCore.Utils.Log;
 using NetCore.Utils.Sessions;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NetCore.Chat.Hubs
+namespace Netcore.Chat.Hubs
 {
     public class ChatHub : Hub
     {

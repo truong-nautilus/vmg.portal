@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using ServerCore.PortalAPI.Models;
-using NetCore.Gateway.Interfaces;
+using Netcore.Gateway.Interfaces;
 
 namespace ServerCore.DataAccess.DAOImpl
 {

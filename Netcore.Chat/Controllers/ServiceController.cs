@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using NetCore.Chat.Models;
+using Netcore.Chat.Models;
 using NetCore.Utils.Log;
 using NetCore.Utils.Sessions;
 
-namespace NetCore.Chat.Controllers
+namespace Netcore.Chat.Controllers
 {
     [Route("[Controller]")]
     public class ServiceController : ControllerBase

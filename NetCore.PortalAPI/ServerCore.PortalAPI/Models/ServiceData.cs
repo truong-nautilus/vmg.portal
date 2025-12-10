@@ -131,7 +131,7 @@ namespace PortalAPI.Models
 
     public class AccountDataReturnReport : AccountDataReturn
     {
-        public new string Mobile { get; set; }
+        public string Mobile { get; set; }
 
         public AccountDataReturnReport(AccountDb accountDb, string mobile)
         {
