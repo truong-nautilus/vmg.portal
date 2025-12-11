@@ -23,7 +23,7 @@ namespace ServerCore.Utilities.Models
         private static readonly int BlockTime;
         private static readonly int MinTimeBlock;
 
-        //static PooledRedisClientManager pooledClientManager = new PooledRedisClientManager(10, 10, "localhost:6379");
+        //static PooledRedisClientManager pooledClientManager = new PooledRedisClientManager(10, 10, "217.216.36.189:6379,password=cdP7mSFrujsy8cYy5XK9Wep");
         //static PooledRedisClientManager pooledClientManagerCCU = new PooledRedisClientManager(10, 10, "chat.atxionline.com:6379");
        
         static BettingGameSession()
