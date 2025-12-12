@@ -26,4 +26,6 @@ RUN apt-get update && apt-get install -y curl wget && rm -rf /var/lib/apt/lists/
 WORKDIR /app
 COPY --from=build /app/publish .
 
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
+
 ENTRYPOINT ["dotnet", "ServerCore.PortalAPI.dll"]
