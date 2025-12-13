@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  portal-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portal_api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./_LOG:/app/_LOG
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
+    restart: unless-stopped
