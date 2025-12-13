@@ -5,7 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: portal_api
+    container_name: portal-api-main
+    restart: unless-stopped
+    expose:
+      - "5000"
     ports:
       - "5000:5000"
     volumes:
@@ -13,4 +16,32 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5000
-    restart: unless-stopped
+    networks:
+      - coolify
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s -X GET -f http://0.0.0.0:5000/health > /dev/null || wget -q -O- http://0.0.0.0:5000/health > /dev/null || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=coolify"
+      - "traefik.http.middlewares.gzip.compress=true"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.http-0-portal-api-main.entryPoints=http"
+      - "traefik.http.routers.http-0-portal-api-main.middlewares=redirect-to-https"
+      - "traefik.http.routers.http-0-portal-api-main.rule=Host(`api.3b1.site`) && PathPrefix(`/`)"
+      - "traefik.http.routers.http-0-portal-api-main.service=http-0-portal-api-main"
+      - "traefik.http.routers.https-0-portal-api-main.entryPoints=https"
+      - "traefik.http.routers.https-0-portal-api-main.middlewares=gzip"
+      - "traefik.http.routers.https-0-portal-api-main.rule=Host(`api.3b1.site`) && PathPrefix(`/`)"
+      - "traefik.http.routers.https-0-portal-api-main.service=https-0-portal-api-main"
+      - "traefik.http.routers.https-0-portal-api-main.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.https-0-portal-api-main.tls=true"
+      - "traefik.http.services.http-0-portal-api-main.loadbalancer.server.port=5000"
+      - "traefik.http.services.https-0-portal-api-main.loadbalancer.server.port=5000"
+
+networks:
+  coolify:
+    external: true
