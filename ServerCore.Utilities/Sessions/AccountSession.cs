@@ -129,13 +129,23 @@ namespace ServerCore.Utilities.Sessions
             {
                 try
                 {
-                    var token = Current.Request.Headers["Authorization"];
-                    if (Current != null && Current.Request.Headers.ContainsKey("Accept-Language"))
+                    if (Current != null)
                     {
-                        string lang = Current.Request.Headers["Accept-Language"];
-                        if (lang == null || lang.Length <= 0)
-                            return "vi";
-                        return lang.ToLower();
+                        // Ưu tiên header "language" (từ frontend)
+                        if (Current.Request.Headers.ContainsKey("language"))
+                        {
+                            string lang = Current.Request.Headers["language"];
+                            if (!string.IsNullOrEmpty(lang))
+                                return lang.ToLower();
+                        }
+                        
+                        // Fallback về "Accept-Language" (standard HTTP header)
+                        if (Current.Request.Headers.ContainsKey("Accept-Language"))
+                        {
+                            string lang = Current.Request.Headers["Accept-Language"];
+                            if (!string.IsNullOrEmpty(lang))
+                                return lang.ToLower();
+                        }
                     }
                 }
                 catch (Exception ex)

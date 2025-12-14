@@ -9,10 +9,23 @@ namespace ServerCore.Utilities.Utils
     {
         public static string GetLanguage(HttpContext httpContext)
         {
-            if (httpContext != null && httpContext.Request.Headers.ContainsKey("Accept-Language"))
+            if (httpContext != null)
             {
-                string lang = httpContext.Request.Headers["Accept-Language"];
-                return lang.ToLower();
+                // Ưu tiên header "language"
+                if (httpContext.Request.Headers.ContainsKey("language"))
+                {
+                    string lang = httpContext.Request.Headers["language"];
+                    if (!string.IsNullOrEmpty(lang))
+                        return lang.ToLower();
+                }
+                
+                // Fallback về "Accept-Language"
+                if (httpContext.Request.Headers.ContainsKey("Accept-Language"))
+                {
+                    string lang = httpContext.Request.Headers["Accept-Language"];
+                    if (!string.IsNullOrEmpty(lang))
+                        return lang.ToLower();
+                }
             }
 
             return "vi";
