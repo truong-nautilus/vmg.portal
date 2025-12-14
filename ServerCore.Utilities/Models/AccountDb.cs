@@ -69,9 +69,9 @@ namespace ServerCore.Utilities.Models
 
         public string UserName { get; set; }
 
-        public decimal TotalCoin { get; set; }
+        public long TotalCoin { get; set; }
 
-        public decimal TotalXu { get; set; }
+        public long TotalXu { get; set; }
 
         public bool isFacebook { get; set; }
 

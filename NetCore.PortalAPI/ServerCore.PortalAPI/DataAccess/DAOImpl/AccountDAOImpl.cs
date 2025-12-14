@@ -100,7 +100,7 @@ namespace ServerCore.DataAccess.DAOImpl
             response = (int)ErrorCodes.SERVER_ERROR;
             try
             {
-                var pars = new SqlParameter[20];
+                var pars = new SqlParameter[17];
                 pars[0] = new SqlParameter("@_AccountName", username);
                 pars[1] = new SqlParameter("@_Password", password);
                 pars[2] = new SqlParameter("@_NickName", nickName);
@@ -118,9 +118,9 @@ namespace ServerCore.DataAccess.DAOImpl
                 pars[14] = new SqlParameter("@_ResponseStatus", SqlDbType.Int) { Direction = ParameterDirection.Output };
                 pars[15] = new SqlParameter("@_LocationID", LocationID);
                 pars[16] = new SqlParameter("@_PreFix", SqlDbType.NVarChar, 20) { Direction = ParameterDirection.Output };
-                pars[17] = new SqlParameter("@_WAddress", walletAddress);
-                pars[18] = new SqlParameter("@_PartnerUserID", partnerUserID);
-                pars[19] = new SqlParameter("@_CurrencyType", SqlDbType.Int) { Direction = ParameterDirection.Output };
+                //pars[17] = new SqlParameter("@_WAddress", walletAddress);
+                //pars[18] = new SqlParameter("@_PartnerUserID", partnerUserID);
+                //pars[19] = new SqlParameter("@_CurrencyType", SqlDbType.Int) { Direction = ParameterDirection.Output };
                 //AccountDb accountDb = db.GetInstanceSP<AccountDb>("SP_Account_CreateAccounts_1", pars);
 
                 var sqlCommand = new SqlCommand
@@ -173,7 +173,7 @@ namespace ServerCore.DataAccess.DAOImpl
                     accountDb.PreFix = Convert.ToString(pars[16].Value);
                     accountDb.Email = Email;
                     accountDb.WalletAddress = walletAddress;
-                    accountDb.CurrencyType = Convert.ToInt32(pars[19].Value);
+                    accountDb.CurrencyType = 1; // Default to 1 as param is removed
                     return accountDb;
                 }
                 return null;

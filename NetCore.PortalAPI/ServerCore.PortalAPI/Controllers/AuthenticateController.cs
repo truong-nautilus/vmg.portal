@@ -731,7 +731,7 @@ namespace ServerCore.PortalAPI.Controllers
             }
         }
 
-        //[HttpPost("CreateAccountTest")]
+        [HttpPost("CreateAccountTest")]
         public ActionResult<ResponseBuilder> CreateAccountTest(LoginAccount loginAccount)
         {
             NLogManager.Info("RegisterCheck:" + JsonConvert.SerializeObject(loginAccount));
