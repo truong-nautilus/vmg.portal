@@ -129,23 +129,23 @@ namespace ServerCore.Utilities.Sessions
             {
                 try
                 {
-                    if (Current != null)
+                    if (Current != null && Current.Request.Headers.ContainsKey("Accept-Language"))
                     {
-                        // Ưu tiên header "language" (từ frontend)
-                        if (Current.Request.Headers.ContainsKey("language"))
+                        string lang = Current.Request.Headers["Accept-Language"];
+                        if (lang == null || lang.Length <= 0)
+                            return "vi";
+                        
+                        // Parse Accept-Language header (e.g., "vi-VN,vi;q=0.9" or "en-US,en;q=0.8")
+                        // Extract first language code
+                        var primaryLang = lang.Split(',')[0].Trim();
+                        
+                        // If language has region code (e.g., "vi-VN"), extract just the language part
+                        if (primaryLang.Contains("-"))
                         {
-                            string lang = Current.Request.Headers["language"];
-                            if (!string.IsNullOrEmpty(lang))
-                                return lang.ToLower();
+                            primaryLang = primaryLang.Split('-')[0];
                         }
                         
-                        // Fallback về "Accept-Language" (standard HTTP header)
-                        if (Current.Request.Headers.ContainsKey("Accept-Language"))
-                        {
-                            string lang = Current.Request.Headers["Accept-Language"];
-                            if (!string.IsNullOrEmpty(lang))
-                                return lang.ToLower();
-                        }
+                        return primaryLang.ToLower();
                     }
                 }
                 catch (Exception ex)
