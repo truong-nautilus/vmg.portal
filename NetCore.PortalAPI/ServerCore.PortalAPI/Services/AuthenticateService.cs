@@ -182,6 +182,21 @@ namespace ServerCore.PortalAPI.Services
                     accountInfo.RefreshToken = GenerateRefreshToken(account);
                     accountInfo.AccessTokenFishing = GenerateTokenFishing(account);
                     accountInfo.SessionID = account.SessionID;
+                    
+                    // Create login session in database
+                    CreateLoginSession(new ALoginSession
+                    {
+                        AccountID = account.AccountID,
+                        SessionID = account.SessionID,
+                        IPAddress = loginAccount.IpAddress ?? "",
+                        LoginDate = DateTime.Now,
+                        ExpireDate = DateTime.Now.AddHours(appSettings.TokenExpire),
+                        Location = "",
+                        IsActive = true,
+                        Browser = loginAccount.DeviceName ?? "",
+                        Device = loginAccount.DeviceName ?? ""
+                    });
+
                     //accountInfo.IsEvent = IsShowEvent(account.AccountID);
                     //4: android, 3: ios, 2: windows - pc, 1: web
                     string platform = "Android";
