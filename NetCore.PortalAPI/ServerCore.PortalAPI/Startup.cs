@@ -114,6 +114,7 @@ namespace ServerCore.PortalAPI
                 options.MinimumSameSitePolicy = SameSiteMode.Lax; // Đảm bảo cookie được gửi cùng với yêu cầu chuyển hướng
                 options.Secure = CookieSecurePolicy.Always; // Sử dụng cookie bảo mật (HTTPS)
             });
+            services.AddMemoryCache();
             services.AddSingleton<CacheHandler>();
             services.AddSingleton<IDBHelper, DBHelper>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
