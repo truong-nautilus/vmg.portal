@@ -971,7 +971,7 @@ namespace ServerCore.PortalAPI.Services
             catch (Exception ex)
             {
                 NLogManager.Exception(ex);
-                return null;
+                return "ERROR: " + ex.ToString();
             }
         }
         public string GenerateRefreshToken(AccountDb accountDb)
