@@ -2123,7 +2123,30 @@ namespace PortalAPI.Controllers
                 var accountID = _accountSession.AccountID;
                 NLogManager.Info(string.Format("GetAccountBalance param: accountID={0}", accountID));
                 var balanceAccount = _accountDAO.GetListBalanceAccount(accountID);
+
+                // Debug logging
+                NLogManager.Info(string.Format("GetAccountBalance: balanceAccount count={0}, CurrencyID={1}",
+                    balanceAccount?.Count ?? 0, _accountSession.CurrencyID));
+
+                if (balanceAccount != null && balanceAccount.Count > 0)
+                {
+                    foreach (var item in balanceAccount)
+                    {
+                        NLogManager.Info(string.Format("Balance item: WalletId={0}, Balance={1}, Name={2}",
+                            item.WalletId, item.Balance, item.Name));
+                    }
+                }
+
                 var balance = balanceAccount.Where(x => x.WalletId == _accountSession.CurrencyID);
+                
+                // Nếu CurrencyID = 0 hoặc không tìm thấy wallet match, trả về tất cả
+                if (!balance.Any())
+                {
+                    NLogManager.Info(string.Format("GetAccountBalance: No wallet matched CurrencyID={0}, returning all wallets", 
+                        _accountSession.CurrencyID));
+                    balance = balanceAccount;
+                }
+                
                 return new ResponseBuilder(ErrorCodes.SUCCESS, _accountSession.Language, balance);
             }
             catch (Exception ex)
