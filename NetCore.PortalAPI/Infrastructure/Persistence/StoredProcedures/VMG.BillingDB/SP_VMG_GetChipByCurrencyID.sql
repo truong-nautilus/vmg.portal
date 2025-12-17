@@ -1,5 +1,4 @@
-
-                    CREATE   PROCEDURE [dbo].[SP_VMG_GetChipByCurrencyID]
+CREATE OR ALTER PROCEDURE [dbo].[SP_VMG_GetChipByCurrencyID]
                         @_CurrencyID int
                     AS
                     BEGIN

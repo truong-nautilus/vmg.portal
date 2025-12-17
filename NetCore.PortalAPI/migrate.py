@@ -37,7 +37,7 @@ def migrate():
                 sp_name = os.path.splitext(filename)[0]
                 
                 # Drop and Re-create
-                cursor.execute(f"IF OBJECT_ID('{sp_name}', 'P') IS NOT NULL DROP PROCEDURE [{sp_name}]")
+#                 cursor.execute(f"IF OBJECT_ID('{sp_name}', 'P') IS NOT NULL DROP PROCEDURE [{sp_name}]")
                 cursor.execute(sql_content)
                 print(f"Updated {sp_name}")
                 

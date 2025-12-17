@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_Accounts_GetSecurityInfo]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Accounts_GetSecurityInfo]
     @_AccountID BIGINT,
     @_Status INT OUTPUT,         -- Mobile Actived Status (1: Active, 0: Inactive)
     @_Mobile VARCHAR(20) OUTPUT,

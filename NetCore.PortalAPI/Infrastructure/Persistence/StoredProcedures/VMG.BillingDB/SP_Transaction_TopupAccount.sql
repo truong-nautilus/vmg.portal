@@ -1,5 +1,4 @@
-
-CREATE PROCEDURE [dbo].[SP_Transaction_TopupAccount]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Transaction_TopupAccount]
     @_ServiceID INT,
     @_ServiceKey NVARCHAR(50),
     @_CurrencyType INT,
@@ -27,7 +26,15 @@ BEGIN
     
     -- Check Account
     DECLARE @_CurrentBalance BIGINT;
-    SELECT @_CurrentBalance = Balance FROM Accounts WHERE AccountID = @_AccountID;
+    
+    IF (@_CurrencyType = 1 OR @_WalletType = 1) -- Coin
+    BEGIN
+        SELECT @_CurrentBalance = TotalCoin FROM Accounts WHERE AccountID = @_AccountID;
+    END
+    ELSE
+    BEGIN
+        SELECT @_CurrentBalance = TotalXu FROM Accounts WHERE AccountID = @_AccountID;
+    END
     
     IF @_CurrentBalance IS NULL
     BEGIN
@@ -36,9 +43,18 @@ BEGIN
     END
 
     -- Add
-    UPDATE Accounts 
-    SET Balance = Balance + @_Amount 
-    WHERE AccountID = @_AccountID;
+    IF (@_CurrencyType = 1 OR @_WalletType = 1) -- Coin
+    BEGIN
+        UPDATE Accounts 
+        SET TotalCoin = TotalCoin + @_Amount 
+        WHERE AccountID = @_AccountID;
+    END
+    ELSE
+    BEGIN
+        UPDATE Accounts 
+        SET TotalXu = TotalXu + @_Amount 
+        WHERE AccountID = @_AccountID;
+    END
     
     SET @_WalletOutput = @_CurrentBalance + @_Amount;
     SET @_ResponseStatus = 1;

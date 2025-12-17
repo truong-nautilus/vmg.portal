@@ -1,5 +1,4 @@
-
-                    CREATE   PROCEDURE [dbo].[SP_Account_GetLoginSessionBySessionID]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Account_GetLoginSessionBySessionID]
                         @_SessionID varchar(100),
                         @_ResponseStatus int OUTPUT
                     AS

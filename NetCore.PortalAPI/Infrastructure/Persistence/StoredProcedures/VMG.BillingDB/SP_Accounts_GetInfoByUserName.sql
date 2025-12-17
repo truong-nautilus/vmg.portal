@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_Accounts_GetInfoByUserName]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Accounts_GetInfoByUserName]
     @_UserName VARCHAR(30)
 AS
 BEGIN

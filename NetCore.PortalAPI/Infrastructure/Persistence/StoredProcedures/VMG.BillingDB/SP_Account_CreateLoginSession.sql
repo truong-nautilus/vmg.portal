@@ -1,5 +1,4 @@
-
-                    CREATE   PROCEDURE [dbo].[SP_Account_CreateLoginSession]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Account_CreateLoginSession]
                         @_AccountID bigint,
                         @_IPAddress varchar(50),
                         @_LoginDate datetime,

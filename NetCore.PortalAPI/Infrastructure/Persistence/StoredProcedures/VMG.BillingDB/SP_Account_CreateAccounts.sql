@@ -47,6 +47,7 @@ BEGIN
     );
 
     SET @_AccountID = SCOPE_IDENTITY();
+    SET @_AccountID = SCOPE_IDENTITY();
     SELECT @_TotalXu = TotalXu, @_TotalCoin = TotalCoin, @_Avatar = Avatar, @_PreFix = PreFix
     FROM Accounts WHERE AccountID = @_AccountID;
 

@@ -1,5 +1,4 @@
-
-CREATE PROCEDURE [dbo].[SP_Transaction_DeductAccount]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Transaction_DeductAccount]
     @_ServiceID INT,
     @_ServiceKey NVARCHAR(50),
     @_CurrencyType INT,
@@ -23,27 +22,37 @@ AS
 BEGIN
     SET NOCOUNT ON;
     SET @_ResponseStatus = -1;
-    
-    -- Check Balance
+    -- Check Account
     DECLARE @_CurrentBalance BIGINT;
-    SELECT @_CurrentBalance = Balance FROM Accounts WHERE AccountID = @_AccountID;
     
-    IF @_CurrentBalance IS NULL
+    IF (@_CurrencyType = 1 OR @_WalletType = 1) -- Coin
     BEGIN
-        SET @_ResponseStatus = -100;
-        RETURN;
+        SELECT @_CurrentBalance = TotalCoin FROM Accounts WHERE AccountID = @_AccountID;
     END
-
-    IF @_CurrentBalance < @_Amount
+    ELSE -- Xu
     BEGIN
-        SET @_ResponseStatus = -200;
+        SELECT @_CurrentBalance = TotalXu FROM Accounts WHERE AccountID = @_AccountID;
+    END
+    
+    IF @_CurrentBalance IS NULL OR @_CurrentBalance < @_Amount
+    BEGIN
+        SET @_ResponseStatus = -200; -- Insufficient funds
         RETURN;
     END
 
     -- Deduct
-    UPDATE Accounts 
-    SET Balance = Balance - @_Amount 
-    WHERE AccountID = @_AccountID;
+    IF (@_CurrencyType = 1 OR @_WalletType = 1) -- Coin
+    BEGIN
+        UPDATE Accounts 
+        SET TotalCoin = TotalCoin - @_Amount 
+        WHERE AccountID = @_AccountID;
+    END
+    ELSE
+    BEGIN
+        UPDATE Accounts 
+        SET TotalXu = TotalXu - @_Amount 
+        WHERE AccountID = @_AccountID;
+    END
     
     SET @_WalletOutput = @_CurrentBalance - @_Amount;
     SET @_ResponseStatus = 1; 

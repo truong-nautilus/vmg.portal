@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_BettingGame_Authenticate_2]
+CREATE OR ALTER PROCEDURE [dbo].[SP_BettingGame_Authenticate_2]
     @_Username VARCHAR(30), 
     @_Password VARCHAR(120),
     @_ClientIP VARCHAR(20) = '',

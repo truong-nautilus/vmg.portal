@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_Account_GetAccountInfoByMobile]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Account_GetAccountInfoByMobile]
     @_Mobile VARCHAR(20),
     @_AccountID BIGINT OUTPUT,
     @_UserName VARCHAR(50) OUTPUT

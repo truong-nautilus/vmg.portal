@@ -1,5 +1,4 @@
-
-                    CREATE   PROCEDURE [dbo].[SP_Account_RemoveLoginSession]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Account_RemoveLoginSession]
                         @_ID bigint,
                         @_AccountID bigint,
                         @_ResponseStatus int OUTPUT

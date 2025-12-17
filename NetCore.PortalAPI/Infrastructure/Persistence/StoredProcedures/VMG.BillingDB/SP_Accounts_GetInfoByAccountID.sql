@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_Accounts_GetInfoByAccountID]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Accounts_GetInfoByAccountID]
     @_AccountID BIGINT
 AS
 BEGIN

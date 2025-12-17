@@ -1,4 +1,4 @@
-CREATE   PROCEDURE [dbo].[SP_BettingGame_Authenticate]
+CREATE OR ALTER PROCEDURE [dbo].[SP_BettingGame_Authenticate]
     @_ServiceID INT = 0,
     @_Username NVARCHAR(30), 
     @_Password VARCHAR(120), -- Increased from 50 to 120
