@@ -8,7 +8,7 @@ HOST = "217.216.36.189"
 USER = "sa"
 PASS = "cdP7mSFrujsy8cYy5XK9Wep"
 DB = "VMG.BillingDB"
-SP_DIR = "Infrastructure/Persistence/StoredProcedures"
+SP_DIR = "Infrastructure/Persistence/StoredProcedures/VMG.BillingDB"
 
 def migrate():
     print(f"--- Migrating SPs for {DB} ---")
