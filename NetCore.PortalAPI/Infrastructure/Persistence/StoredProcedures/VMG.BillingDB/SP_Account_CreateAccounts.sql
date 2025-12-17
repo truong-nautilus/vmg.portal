@@ -1,6 +1,6 @@
 
 -- Stored Procedure: SP_Account_CreateAccounts
-CREATE   PROCEDURE [dbo].[SP_Account_CreateAccounts]
+CREATE OR ALTER PROCEDURE [dbo].[SP_Account_CreateAccounts]
     @_AccountName VARCHAR(30),
     @_Password VARCHAR(120),
     @_NickName VARCHAR(30),

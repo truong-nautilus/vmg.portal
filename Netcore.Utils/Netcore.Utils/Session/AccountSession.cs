@@ -13,17 +13,17 @@ namespace NetCore.Utils.Sessions
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public HttpContext Current => _httpContextAccessor.HttpContext;
+        public HttpContext Current => _httpContextAccessor?.HttpContext;
 
         public long AccountID
         {
             get
             {
                 long accountId = 0;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("AccountId").Value;
-                    accountId = Int64.Parse(val);
+                    var claim = Current.User.FindFirst("AccountId");
+                    if (claim != null) Int64.TryParse(claim.Value, out accountId);
                 }
                 return accountId;
             }
@@ -36,15 +36,14 @@ namespace NetCore.Utils.Sessions
                 try
                 {
                     string val = "";
-                    if (Current.User.Identity.IsAuthenticated)
+                    if (Current?.User?.Identity?.IsAuthenticated == true)
                     {
-                        val = Current.User.FindFirst("UserName").Value;
+                        val = Current.User.FindFirst("UserName")?.Value ?? "";
                     }
                     return val;
                 }
                 catch (Exception)
                 {
-
                     return string.Empty;
                 }
             }
@@ -56,16 +55,14 @@ namespace NetCore.Utils.Sessions
             {
                 try
                 {
-                    if (Current.User.Identity.IsAuthenticated)
+                    if (Current?.User?.Identity?.IsAuthenticated == true)
                     {
-                        string nickName = Current.User.FindFirst("NickName").Value;
-                        return nickName;
+                        return Current.User.FindFirst("NickName")?.Value ?? string.Empty;
                     }
                     return string.Empty;
                 }
                 catch (Exception)
                 {
-
                     return string.Empty;
                 }
             }
@@ -76,10 +73,10 @@ namespace NetCore.Utils.Sessions
             get
             {
                 int merchantId = 0;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("MerchantId").Value;
-                    merchantId = int.Parse(val);
+                    var claim = Current.User.FindFirst("MerchantId");
+                    if (claim != null) int.TryParse(claim.Value, out merchantId);
                 }
                 return merchantId;
             }
@@ -90,10 +87,10 @@ namespace NetCore.Utils.Sessions
             get
             {
                 int platformId = 0;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("PlatformId").Value;
-                    platformId = int.Parse(val);
+                    var claim = Current.User.FindFirst("PlatformId");
+                    if (claim != null) int.TryParse(claim.Value, out platformId);
                 }
                 return platformId;
             }
@@ -104,10 +101,10 @@ namespace NetCore.Utils.Sessions
             get
             {
                 int platformId = 0;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("PlatformId").Value;
-                    platformId = int.Parse(val);
+                    var claim = Current.User.FindFirst("PlatformId"); // Note: Original code mapped SourceID to PlatformId claim
+                    if (claim != null) int.TryParse(claim.Value, out platformId);
                 }
                 return platformId;
             }
@@ -117,11 +114,13 @@ namespace NetCore.Utils.Sessions
         {
             get
             {
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
                     var claim = Current.User.FindFirst("IsAgency");
-                    string val = claim == null ? "0" : claim.Value;
-                    return int.Parse(val) == 1;
+                    if (claim != null && int.TryParse(claim.Value, out int val))
+                    {
+                        return val == 1;
+                    }
                 }
                 return false;
             }
@@ -131,9 +130,9 @@ namespace NetCore.Utils.Sessions
         {
             get
             {
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    return Current.Connection.RemoteIpAddress.ToString();
+                    return Current.Connection?.RemoteIpAddress?.ToString() ?? "";
                 }
                 return "";
             }
@@ -143,10 +142,10 @@ namespace NetCore.Utils.Sessions
         {
             get
             {
-                if (Current != null && Current.Request.Headers.ContainsKey("Accept-Language"))
+                if (Current?.Request?.Headers != null && Current.Request.Headers.ContainsKey("Accept-Language"))
                 {
                     string lang = Current.Request.Headers["Accept-Language"];
-                    return lang.ToLower();
+                    return lang?.ToLower() ?? "vi";
                 }
                 return "vi";
             }
@@ -156,12 +155,26 @@ namespace NetCore.Utils.Sessions
             get
             {
                 bool isOtp = false;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("IsOTP").Value;
-                    isOtp = bool.Parse(val);
+                    var claim = Current.User.FindFirst("IsOTP");
+                    if (claim != null) bool.TryParse(claim.Value, out isOtp);
                 }
                 return isOtp;
+            }
+        }
+
+        public int CurrencyID
+        {
+             get
+            {
+                int currencyID = 1;
+                if (Current?.User?.Identity?.IsAuthenticated == true)
+                {
+                    var claim = Current.User.FindFirst("CurrencyID");
+                    if (claim != null) int.TryParse(claim.Value, out currencyID);
+                }
+                return currencyID;
             }
         }
 
@@ -169,11 +182,9 @@ namespace NetCore.Utils.Sessions
         {
             get
             {
-                //string refCode = '';
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string refCode = Current.User.FindFirst("RefCode").Value;
-                    return refCode;
+                    return Current.User.FindFirst("RefCode")?.Value ?? "";
                 }
                 return "";
             }
@@ -182,11 +193,9 @@ namespace NetCore.Utils.Sessions
         {
             get
             {
-                //string refCode = '';
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string preFix = Current.User.FindFirst("PreFix").Value;
-                    return preFix;
+                    return Current.User.FindFirst("PreFix")?.Value ?? "";
                 }
                 return "";
             }
@@ -197,10 +206,10 @@ namespace NetCore.Utils.Sessions
             get
             {
                 int locationID = 0;
-                if (Current.User.Identity.IsAuthenticated)
+                if (Current?.User?.Identity?.IsAuthenticated == true)
                 {
-                    string val = Current.User.FindFirst("LocationID").Value;
-                    locationID = int.Parse(val);
+                    var claim = Current.User.FindFirst("LocationID");
+                    if (claim != null) int.TryParse(claim.Value, out locationID);
                 }
                 return locationID;
             }
