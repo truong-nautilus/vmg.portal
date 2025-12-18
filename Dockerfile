@@ -3,20 +3,20 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 # Copy project files
-COPY NetCore.PortalAPI/ServerCore.PortalAPI/*.csproj NetCore.PortalAPI/ServerCore.PortalAPI/
+COPY NetCore.PortalAPI/*.csproj NetCore.PortalAPI/
 COPY ServerCore.Utilities/*.csproj ServerCore.Utilities/
 COPY Netcore.Utils/Netcore.Utils/*.csproj Netcore.Utils/Netcore.Utils/
 COPY Netcore.Chat/*.csproj Netcore.Chat/
 COPY Netcore.Notification/*.csproj Netcore.Notification/
 
 # Restore dependencies
-RUN dotnet restore NetCore.PortalAPI/ServerCore.PortalAPI/ServerCore.PortalAPI.csproj
+RUN dotnet restore NetCore.PortalAPI/ServerCore.PortalAPI.csproj
 
 # Copy all source code
 COPY . .
 
 # Build and Publish
-WORKDIR /src/NetCore.PortalAPI/ServerCore.PortalAPI
+WORKDIR /src/NetCore.PortalAPI
 RUN dotnet build -c Release -o /app/build
 RUN dotnet publish -c Release -o /app/publish
 
