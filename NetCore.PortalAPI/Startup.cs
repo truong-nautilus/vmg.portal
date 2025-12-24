@@ -53,6 +53,13 @@ namespace ServerCore.PortalAPI
             ////configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             settings = appSettings;
+            
+            // Check for required configuration
+            if (string.IsNullOrEmpty(appSettings?.JwtKey))
+            {
+                throw new InvalidOperationException("JwtKey is not configured in AppSettings. Please check appsettings.json or environment variables.");
+            }
+            
             var key = Encoding.ASCII.GetBytes(appSettings.JwtKey);
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
