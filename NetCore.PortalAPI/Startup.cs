@@ -54,10 +54,29 @@ namespace ServerCore.PortalAPI
             var appSettings = appSettingsSection.Get<AppSettings>();
             settings = appSettings;
             
-            // Check for required configuration
-            if (string.IsNullOrEmpty(appSettings?.JwtKey))
+            // Check for required configuration with detailed logging
+            if (appSettings == null)
             {
-                throw new InvalidOperationException("JwtKey is not configured in AppSettings. Please check appsettings.json or environment variables.");
+                NLogManager.Error("AppSettings section is null! Check appsettings.json structure.");
+                throw new InvalidOperationException("AppSettings section is not configured. Please check appsettings.json.");
+            }
+            
+            NLogManager.Info($"AppSettings loaded: JwtKey={(!string.IsNullOrEmpty(appSettings.JwtKey) ? "***SET***" : "NULL")}, IsRedisCache={appSettings.IsRedisCache}");
+            
+            if (string.IsNullOrEmpty(appSettings.JwtKey))
+            {
+                NLogManager.Error("JwtKey is null or empty! Using environment variable or default.");
+                // Try to get from environment variable directly
+                var envJwtKey = Environment.GetEnvironmentVariable("AppSettings__JwtKey");
+                if (!string.IsNullOrEmpty(envJwtKey))
+                {
+                    appSettings.JwtKey = envJwtKey;
+                    NLogManager.Info("JwtKey loaded from environment variable.");
+                }
+                else
+                {
+                    throw new InvalidOperationException("JwtKey is not configured in AppSettings. Please check appsettings.json or set AppSettings__JwtKey environment variable.");
+                }
             }
             
             var key = Encoding.ASCII.GetBytes(appSettings.JwtKey);

@@ -15,6 +15,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:5000
+      - AppSettings__JwtKey=${JWT_KEY:-a7Q!c2@3e#z@9b6f1d8a0Q5s4@2_ThirtyTwoCharsMin}
     networks:
       - coolify
     healthcheck:
