@@ -16,6 +16,7 @@ using ServerCore.Utilities.Security;
 using ServerCore.Utilities.Sessions;
 using ServerCore.Utilities.Utils;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
@@ -2124,23 +2125,27 @@ namespace PortalAPI.Controllers
                 NLogManager.Info(string.Format("GetAccountBalance param: accountID={0}", accountID));
                 var balanceAccount = _accountRepository.GetListBalanceAccount(accountID);
 
-                // Debug logging
-                NLogManager.Info(string.Format("GetAccountBalance: balanceAccount count={0}, CurrencyID={1}",
-                    balanceAccount?.Count ?? 0, _accountSession.CurrencyID));
-
-                if (balanceAccount != null && balanceAccount.Count > 0)
+                // Null check - return empty list thay vì throw exception
+                if (balanceAccount == null || balanceAccount.Count == 0)
                 {
-                    foreach (var item in balanceAccount)
-                    {
-                        NLogManager.Info(string.Format("Balance item: WalletId={0}, Balance={1}, Name={2}",
-                            item.WalletId, item.Balance, item.Name));
-                    }
+                    NLogManager.Info(string.Format("GetAccountBalance: No balance data found for accountID={0}", accountID));
+                    return new ResponseBuilder(ErrorCodes.SUCCESS, _accountSession.Language, new List<ListBalanceAccount>());
                 }
 
-                var balance = balanceAccount.Where(x => x.WalletId == _accountSession.CurrencyID);
+                // Debug logging
+                NLogManager.Info(string.Format("GetAccountBalance: balanceAccount count={0}, CurrencyID={1}",
+                    balanceAccount.Count, _accountSession.CurrencyID));
+
+                foreach (var item in balanceAccount)
+                {
+                    NLogManager.Info(string.Format("Balance item: WalletId={0}, Balance={1}, Name={2}",
+                        item.WalletId, item.Balance, item.Name));
+                }
+
+                var balance = balanceAccount.Where(x => x.WalletId == _accountSession.CurrencyID).ToList();
                 
                 // Nếu CurrencyID = 0 hoặc không tìm thấy wallet match, trả về tất cả
-                if (!balance.Any())
+                if (balance.Count == 0)
                 {
                     NLogManager.Info(string.Format("GetAccountBalance: No wallet matched CurrencyID={0}, returning all wallets", 
                         _accountSession.CurrencyID));
