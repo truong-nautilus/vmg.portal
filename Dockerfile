@@ -22,8 +22,8 @@ RUN dotnet publish ServerCore.PortalAPI.csproj -c Release -o /app/publish
 
 # Ensure correct appsettings.json is used (from NetCore.PortalAPI, not from other projects)
 RUN cp /src/NetCore.PortalAPI/appsettings.json /app/publish/appsettings.json
-RUN cp /src/NetCore.PortalAPI/appsettings.Development.json /app/publish/appsettings.Development.json
-RUN cp -r /src/NetCore.PortalAPI/Languages /app/publish/Languages
+RUN cp /src/NetCore.PortalAPI/appsettings.Development.json /app/publish/appsettings.Development.json 2>/dev/null || true
+RUN cp -r /src/NetCore.PortalAPI/Languages /app/publish/Languages 2>/dev/null || true
 
 # Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
