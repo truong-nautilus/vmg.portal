@@ -1,0 +1,13 @@
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/bin/Debug/net9.0/ServerCore.Utilities.deps.json
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/bin/Debug/net9.0/ServerCore.Utilities.dll
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/bin/Debug/net9.0/ServerCore.Utilities.pdb
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.csproj.AssemblyReference.cache
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.AssemblyInfoInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.AssemblyInfo.cs
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.csproj.CoreCompileInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.sourcelink.json
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.dll
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/refint/ServerCore.Utilities.dll
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ServerCore.Utilities.pdb
+/Users/nautilus/github/vmg/vmg.portal/ServerCore.Utilities/obj/Debug/net9.0/ref/ServerCore.Utilities.dll

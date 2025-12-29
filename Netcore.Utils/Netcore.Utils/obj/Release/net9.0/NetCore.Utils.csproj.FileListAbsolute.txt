@@ -1,0 +1,17 @@
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/nlog.config
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/NetCore.Utils.deps.json
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/NetCore.Utils.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/NetCore.Utils.pdb
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/ServerCore.Utilities.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/bin/Release/net9.0/ServerCore.Utilities.pdb
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.csproj.AssemblyReference.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.AssemblyInfoInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.AssemblyInfo.cs
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.csproj.CoreCompileInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.sourcelink.json
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore..AD3C3B7F.Up2Date
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/refint/NetCore.Utils.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/NetCore.Utils.pdb
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Release/net9.0/ref/NetCore.Utils.dll

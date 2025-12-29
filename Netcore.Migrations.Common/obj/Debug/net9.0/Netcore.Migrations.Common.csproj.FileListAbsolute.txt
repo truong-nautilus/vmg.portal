@@ -1,0 +1,13 @@
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/bin/Debug/net9.0/Netcore.Migrations.Common.deps.json
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/bin/Debug/net9.0/Netcore.Migrations.Common.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/bin/Debug/net9.0/Netcore.Migrations.Common.pdb
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.csproj.AssemblyReference.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.AssemblyInfoInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.AssemblyInfo.cs
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.csproj.CoreCompileInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.sourcelink.json
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/refint/Netcore.Migrations.Common.dll
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/Netcore.Migrations.Common.pdb
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Migrations.Common/obj/Debug/net9.0/ref/Netcore.Migrations.Common.dll

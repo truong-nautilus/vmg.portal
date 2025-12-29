@@ -1,0 +1,6 @@
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.csproj.AssemblyReference.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.GeneratedMSBuildEditorConfig.editorconfig
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.AssemblyInfoInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.AssemblyInfo.cs
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.csproj.CoreCompileInputs.cache
+/Users/nautilus/github/vmg/vmg.portal/Netcore.Utils/Netcore.Utils/obj/Debug/netcoreapp2.2/NetCore.Utils.sourcelink.json
