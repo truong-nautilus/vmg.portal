@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../ServerCore.Utilities/ServerCore.Utilities.csproj" />
+    <ProjectReference Include="../Netcore.Migrations.Common/Netcore.Migrations.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,4 +39,11 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Infrastructure\Persistence\StoredProcedures\**\*.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
+

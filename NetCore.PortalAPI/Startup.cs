@@ -55,6 +55,23 @@ namespace ServerCore.PortalAPI
             var appSettings = appSettingsSection.Get<AppSettings>();
             settings = appSettings;
             
+            // Chạy database migrations khi startup
+            if (appSettings != null && !string.IsNullOrEmpty(appSettings.BillingDatabaseAPIConnectionString))
+            {
+                try
+                {
+                    Netcore.Migrations.Common.MigrationRunner.RunMigrations(
+                        appSettings.BillingDatabaseAPIConnectionString,
+                        typeof(NetCore.PortalAPI.Migrations.M001_InitializeDatabase),
+                        createDatabaseIfNotExists: true);
+                    NLogManager.Info("Database migrations completed successfully.");
+                }
+                catch (Exception ex)
+                {
+                    NLogManager.Error($"Migration warning: {ex.Message}");
+                }
+            }
+            
             // Check for required configuration with detailed logging
             if (appSettings == null)
             {
